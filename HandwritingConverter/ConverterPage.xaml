@@ -1,0 +1,65 @@
+﻿<Page
+    x:Class="HandwritingConverter.ConverterPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HandwritingConverter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
+    <Page.Resources>
+        <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
+    </Page.Resources>
+    <Grid>
+        <Border x:Name="AppTitleBar"
+                IsHitTestVisible="True"
+                VerticalAlignment="Top"
+                Background="Transparent"
+                Height="32"
+                Margin="48,0,0,0">
+            <StackPanel Orientation="Horizontal">
+                <Image x:Name="AppFontIcon"
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Center"
+                    Source="Assets/Square44x44Logo.png" 
+                    Width="16" 
+                    Height="16"/>
+                <TextBlock x:Name="AppTitle"
+                    Text="Handwriting Converter"
+                    VerticalAlignment="Center"
+                    Margin="12,0,0,0"
+                    Style="{StaticResource CaptionTextBlockStyle}" />
+            </StackPanel>
+        </Border>
+        <muxc:NavigationView x:Name="NavView"          
+            Header="Converter" 
+            DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
+            PaneDisplayMode="Top">
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItem Tag="converter" Content="Converter"/>
+                <muxc:NavigationViewItem Tag="notes"  Content="Notes"/>
+            </muxc:NavigationView.MenuItems>
+            <Grid>
+                <Frame x:Name="contentFrame">
+                    <Grid>
+                        <TextBlock Padding="56,16,0,0">Welcome to the Handwriting to Text Converter! Use the mouse to write a word or sentence in the box on the left, click the button in the middle and your handwriting will be converted to text.</TextBlock>
+                    </Grid>
+                </Frame>
+            </Grid>
+        </muxc:NavigationView>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Background="White" Margin="80,372,80,283" BorderBrush="Gray" BorderThickness="1" CornerRadius="12">
+                <InkCanvas x:Name="inkCanvas"/>
+            </Grid>
+            <Grid Grid.Column="1"  Background="White" Margin="80,373,80,283" BorderBrush="Gray" BorderThickness="1" CornerRadius="12">
+                <TextBlock Margin="10, 10, 10, 10" x:Name="recognitionResult" Foreground="Black"/>
+            </Grid>
+        </Grid>
+        <Button x:Name="convert" Content="Convert" Margin="0,507,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+    </Grid>
+</Page>
