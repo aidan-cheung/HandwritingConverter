@@ -1,0 +1,2 @@
+### Handwriting Converter
+This project is for the SQA Advanced Higher Computing Science course. The program will take handwriting as an input and convert it into computer readable text which you can copy, paste or share. 
