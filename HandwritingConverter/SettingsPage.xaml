@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="HandwritingConverter.NotesPage"
+    x:Class="HandwritingConverter.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:HandwritingConverter"
@@ -8,6 +8,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
+
     <Page.Resources>
         <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
     </Page.Resources>
@@ -33,7 +34,7 @@
             </StackPanel>
         </Border>
         <muxc:NavigationView x:Name="NavigationViewControl"          
-            Header="Notes" 
+            Header="Converter" 
             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
             PaneDisplayMode="Top">
             <muxc:NavigationView.MenuItems>
@@ -43,7 +44,7 @@
             <Grid>
                 <Frame x:Name="contentFrame">
                     <Grid>
-                        <TextBlock Padding="56,16,0,0">Hello there, this is the notes page</TextBlock>
+                        <TextBlock Padding="56,16,0,0">Welcome to the Handwriting to Text Converter! Use the mouse to write a word or sentence in the box on the left, click the button in the middle and your handwriting will be converted to text.</TextBlock>
                     </Grid>
                 </Frame>
             </Grid>

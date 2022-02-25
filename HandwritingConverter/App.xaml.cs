@@ -14,6 +14,10 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Data.Sqlite;
+using Windows.Storage;
+using System.Diagnostics;
+
 
 namespace HandwritingConverter
 {
@@ -22,6 +26,34 @@ namespace HandwritingConverter
     /// </summary>
     sealed partial class App : Application
     {
+        public static class DataAccess
+        {
+            public async static void InitializeDatabase()
+            {
+                await ApplicationData.Current.LocalFolder.CreateFileAsync("handwritingConverter.db", CreationCollisionOption.OpenIfExists);
+                string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
+                Debug.WriteLine("");
+                Debug.WriteLine("Database Path");
+                Debug.WriteLine(dbpath);
+                Debug.WriteLine("");
+                Debug.WriteLine("");
+                using (SqliteConnection db =
+                   new SqliteConnection($"Filename={dbpath}"))
+                {
+                    db.Open();
+
+                    String tableCommand = "CREATE TABLE IF NOT EXISTS convertedText (" +
+                        "GUID VARCHAR(36) NOT NULL CHECK(length(GUID)==36)," +
+                        "Handwritten BLOB," +
+                        "Converted VARCHAR(255)," +
+                        "PRIMARY KEY (GUID) );";
+
+                    SqliteCommand createTable = new SqliteCommand(tableCommand, db);
+
+                    createTable.ExecuteReader();
+                }
+            }
+        }
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -30,6 +62,8 @@ namespace HandwritingConverter
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            DataAccess.InitializeDatabase();
         }
 
         /// <summary>
