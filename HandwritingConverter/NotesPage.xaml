@@ -13,7 +13,7 @@
     </Page.Resources>
     <Grid>
         <Grid>
-            <TextBlock Padding="56,16,0,0">Welcome to the Handwriting to Text Converter! Use the mouse to write a word or sentence in the box on the left, click the button in the middle and your handwriting will be converted to text.</TextBlock>
+            <TextBlock Padding="56,16,0,0">Here you can see a gallery of all your saved text. Click on a piece of text for more options.</TextBlock>
         </Grid>
     </Grid>
 </Page>
