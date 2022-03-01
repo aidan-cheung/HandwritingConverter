@@ -12,14 +12,16 @@
         <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
     </Page.Resources>
     <Grid>
-        <muxc:RadioButtons Header="Theme:">
-            <RadioButton Content="Light"/>
-            <RadioButton Content="Dark"/>
-            <RadioButton Content="Use System Setting"/>
-        </muxc:RadioButtons>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="About" VerticalAlignment="Top" Height="37" Width="75" FontSize="24" Margin="30,150,0,0" FontFamily="Segoe UI Variable Display" FontWeight="Normal"/>
-        <TextBlock HorizontalAlignment="Left" Margin="30,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" x:Name="versiontext"/>
-        <TextBlock HorizontalAlignment="Left" Margin="30,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Created 2021-2022 by Aidan Cheung"/>
+        <Grid HorizontalAlignment="Left" Margin="30,20,0,0">
+            <muxc:RadioButtons Header="Theme:">
+                <RadioButton Content="Light"/>
+                <RadioButton Content="Dark"/>
+                <RadioButton Content="Use System Setting"/>
+            </muxc:RadioButtons>
+        </Grid>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="About" VerticalAlignment="Top" Height="37" Width="75" FontSize="24" Margin="30,170,0,0" FontFamily="Segoe UI Variable Display" FontWeight="Normal"/>
+        <TextBlock HorizontalAlignment="Left" Margin="30,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" x:Name="versiontext"/>
+        <TextBlock HorizontalAlignment="Left" Margin="30,230,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Created 2021-2022 by Aidan Cheung"/>
 
     </Grid>
 </Page>
