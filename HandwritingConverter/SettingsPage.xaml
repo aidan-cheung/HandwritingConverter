@@ -8,46 +8,18 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
-
     <Page.Resources>
         <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
     </Page.Resources>
     <Grid>
-        <Border x:Name="AppTitleBar"
-                IsHitTestVisible="True"
-                VerticalAlignment="Top"
-                Background="Transparent"
-                Height="32"
-                Margin="48,0,0,0">
-            <StackPanel Orientation="Horizontal">
-                <Image x:Name="AppFontIcon"
-                    HorizontalAlignment="Left" 
-                    VerticalAlignment="Center"
-                    Source="Assets/Square44x44Logo.png" 
-                    Width="16" 
-                    Height="16"/>
-                <TextBlock x:Name="AppTitle"
-                    Text="Handwriting Converter"
-                    VerticalAlignment="Center"
-                    Margin="12,0,0,0"
-                    Style="{StaticResource CaptionTextBlockStyle}" />
-            </StackPanel>
-        </Border>
-        <muxc:NavigationView x:Name="NavigationViewControl"          
-            Header="Converter" 
-            DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
-            PaneDisplayMode="Top">
-            <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem Content="Converter"/>
-                <muxc:NavigationViewItem Content="Notes"/>
-            </muxc:NavigationView.MenuItems>
-            <Grid>
-                <Frame x:Name="contentFrame">
-                    <Grid>
-                        <TextBlock Padding="56,16,0,0">Welcome to the Handwriting to Text Converter! Use the mouse to write a word or sentence in the box on the left, click the button in the middle and your handwriting will be converted to text.</TextBlock>
-                    </Grid>
-                </Frame>
-            </Grid>
-        </muxc:NavigationView>
+        <muxc:RadioButtons Header="Theme:">
+            <RadioButton Content="Light"/>
+            <RadioButton Content="Dark"/>
+            <RadioButton Content="Use System Setting"/>
+        </muxc:RadioButtons>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="About" VerticalAlignment="Top" Height="37" Width="75" FontSize="24" Margin="30,150,0,0" FontFamily="Segoe UI Variable Display" FontWeight="Normal"/>
+        <TextBlock HorizontalAlignment="Left" Margin="30,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" x:Name="versiontext"/>
+        <TextBlock HorizontalAlignment="Left" Margin="30,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Created 2021-2022 by Aidan Cheung"/>
+
     </Grid>
 </Page>

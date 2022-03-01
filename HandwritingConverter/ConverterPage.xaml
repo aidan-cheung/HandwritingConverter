@@ -12,49 +12,10 @@
         <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
     </Page.Resources>
     <Grid>
-        <Border x:Name="AppTitleBar"
-            IsHitTestVisible="True"
-            VerticalAlignment="Top"
-            Background="Transparent"
-            Height="32">
-            <StackPanel Orientation="Horizontal">
-                <Image x:Name="AppFontIcon"
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Center"
-                Source="Assets/Square44x44Logo.png" 
-                Width="16" 
-                Height="16"/>
-                <TextBlock x:Name="AppTitle"
-                Text="Handwriting Converter"
-                VerticalAlignment="Center"
-                Margin="12,0,0,0"
-                Style="{StaticResource CaptionTextBlockStyle}" />
-            </StackPanel>
-        </Border>
-        <muxc:NavigationView x:Name="NavView"          
-        Header="Converter" 
-        DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
-        PaneDisplayMode="Top"
-        Loaded="NavView_Loaded"
-        ItemInvoked="NavView_ItemInvoked">
-            <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem Tag="converter" Content="Converter"/>
-                <muxc:NavigationViewItem Tag="notes"  Content="Notes"/>
-            </muxc:NavigationView.MenuItems>
 
-            <ScrollViewer>
-                <Frame x:Name="ContentFrame" Padding="12,0,12,24" IsTabStop="True"
-                   NavigationFailed="ContentFrame_NavigationFailed">
-                    <Grid>
-                        <TextBlock Padding="56,16,0,0">Welcome to the Handwriting to Text Converter! Use the mouse to write a word or sentence in the box on the left, click the button in the middle and your handwriting will be converted to text.</TextBlock>
-                    </Grid>
-                </Frame>
-            </ScrollViewer>
-        </muxc:NavigationView>
-
-        <!-- <Grid>
+        <Grid>
             <TextBlock Padding="56,16,0,0">Welcome to the Handwriting to Text Converter! Use the mouse to write a word or sentence in the box on the left, click the button in the middle and your handwriting will be converted to text.</TextBlock>
-        </Grid> -->
+        </Grid> 
         <Grid Height="1080" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -69,24 +30,5 @@
         </Grid>
 
         <Button x:Name="convert" Content="Convert" Margin="0,559,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="32"/>
-
-        
-        
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger
-                        MinWindowWidth="{x:Bind NavViewCompactModeThresholdWidth}"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <!-- Remove the next 3 lines for left-only navigation. -->
-                        <Setter Target="NavView.PaneDisplayMode" Value="Top"/>
-                        <!-- Leave the next line for left-only navigation. -->
-                        <Setter Target="ContentFrame.Padding" Value="24,0,24,24"/>
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>

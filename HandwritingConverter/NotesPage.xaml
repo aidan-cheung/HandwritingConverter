@@ -12,41 +12,8 @@
         <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
     </Page.Resources>
     <Grid>
-        <Border x:Name="AppTitleBar"
-                IsHitTestVisible="True"
-                VerticalAlignment="Top"
-                Background="Transparent"
-                Height="32"
-                Margin="48,0,0,0">
-            <StackPanel Orientation="Horizontal">
-                <Image x:Name="AppFontIcon"
-                    HorizontalAlignment="Left" 
-                    VerticalAlignment="Center"
-                    Source="Assets/Square44x44Logo.png" 
-                    Width="16" 
-                    Height="16"/>
-                <TextBlock x:Name="AppTitle"
-                    Text="Handwriting Converter"
-                    VerticalAlignment="Center"
-                    Margin="12,0,0,0"
-                    Style="{StaticResource CaptionTextBlockStyle}" />
-            </StackPanel>
-        </Border>
-        <muxc:NavigationView x:Name="NavigationViewControl"          
-            Header="Notes" 
-            DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
-            PaneDisplayMode="Top">
-            <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem Content="Converter"/>
-                <muxc:NavigationViewItem Content="Notes"/>
-            </muxc:NavigationView.MenuItems>
-            <Grid>
-                <Frame x:Name="contentFrame">
-                    <Grid>
-                        <TextBlock Padding="56,16,0,0">Hello there, this is the notes page</TextBlock>
-                    </Grid>
-                </Frame>
-            </Grid>
-        </muxc:NavigationView>
+        <Grid>
+            <TextBlock Padding="56,16,0,0">Welcome to the Handwriting to Text Converter! Use the mouse to write a word or sentence in the box on the left, click the button in the middle and your handwriting will be converted to text.</TextBlock>
+        </Grid>
     </Grid>
 </Page>
