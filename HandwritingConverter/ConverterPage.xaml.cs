@@ -108,7 +108,7 @@ namespace HandwritingConverter
             }
         }
 
-        public static void AddData(string inputText)
+        private void AddData(object sender, RoutedEventArgs e)
         {
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
             using (SqliteConnection db =
@@ -119,9 +119,10 @@ namespace HandwritingConverter
                 SqliteCommand insertCommand = new SqliteCommand();
                 insertCommand.Connection = db;
 
-                // Use parameterized query to prevent SQL injection attacks
-                insertCommand.CommandText = "INSERT INTO MyTable VALUES (NULL, @Entry);";
-                insertCommand.Parameters.AddWithValue("@Entry", inputText);
+                Guid guid = Guid.NewGuid();
+                string result = recognitionResult.Text;
+
+                insertCommand.CommandText = $"INSERT INTO convertedText VALUES ('{guid}', '', '{result}');";
 
                 insertCommand.ExecuteReader();
 

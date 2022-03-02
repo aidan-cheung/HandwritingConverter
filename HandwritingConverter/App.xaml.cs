@@ -18,7 +18,6 @@ using Microsoft.Data.Sqlite;
 using Windows.Storage;
 using System.Diagnostics;
 
-
 namespace HandwritingConverter
 {
     /// <summary>
@@ -51,8 +50,10 @@ namespace HandwritingConverter
                     SqliteCommand createTable = new SqliteCommand(tableCommand, db);
 
                     createTable.ExecuteReader();
+
+                    db.Close();
                 }
-            }
+            }            
         }
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
