@@ -46,5 +46,24 @@ namespace HandwritingConverter
 
             versiontext.Text = appVersion;
         }
+        /*
+        private void OnThemeRadioButtonChecked(object sender, RoutedEventArgs e)
+        {
+            var selectedTheme = ((RadioButton)sender)?.Tag?.ToString();
+            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+
+            if (selectedTheme != null)
+            {
+                ThemeHelper.RootTheme = App.GetEnum<ElementTheme>(selectedTheme);
+            }
+        }
+
+        private void OnThemeRadioButtonKeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Up)
+            {
+                NavigationRootPage.Current.PageHeader.Focus(FocusState.Programmatic);
+            }
+        }*/
     }
 }

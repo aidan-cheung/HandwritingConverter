@@ -22,6 +22,8 @@ using muxc = Microsoft.UI.Xaml.Controls;
 using Windows.UI.Core;
 using Windows.System;
 using Windows.UI.Xaml.Controls;
+using Microsoft.Data.Sqlite;
+using Windows.Storage;
 
 namespace HandwritingConverter
 {
@@ -31,7 +33,6 @@ namespace HandwritingConverter
 
     - https://docs.microsoft.com/en-us/windows/apps/design/input/ink-walkthrough
 
-    - https://docs.microsoft.com/en-us/windows/apps/design/controls/navigationview
     */
     public sealed partial class ConverterPage : Page
     {
@@ -105,6 +106,28 @@ namespace HandwritingConverter
             {
                 recognitionResult.Text = "No ink strokes to recognize.";
             }
+        }
+
+        public static void AddData(string inputText)
+        {
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
+            using (SqliteConnection db =
+              new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+
+                SqliteCommand insertCommand = new SqliteCommand();
+                insertCommand.Connection = db;
+
+                // Use parameterized query to prevent SQL injection attacks
+                insertCommand.CommandText = "INSERT INTO MyTable VALUES (NULL, @Entry);";
+                insertCommand.Parameters.AddWithValue("@Entry", inputText);
+
+                insertCommand.ExecuteReader();
+
+                db.Close();
+            }
+
         }
     }
 }

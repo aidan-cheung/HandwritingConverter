@@ -14,7 +14,7 @@
     <Grid>
 
         <Grid>
-            <TextBlock Padding="56,16,0,0">Welcome to the Handwriting to Text Converter! Use the mouse to write a word or sentence in the box on the left, click the button in the middle and your handwriting will be converted to text.</TextBlock>
+            <TextBlock Padding="30,16,0,0">Welcome to the Handwriting to Text Converter! Use the mouse to write a word or sentence in the box on the left, click the button in the middle and your handwriting will be converted to text.</TextBlock>
         </Grid> 
         <Grid Height="1080" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>

@@ -13,7 +13,7 @@
     </Page.Resources>
     <Grid>
         <Grid>
-            <TextBlock Padding="56,16,0,0">Here you can see a gallery of all your saved text. Click on a piece of text for more options.</TextBlock>
+            <TextBlock Padding="30,16,0,0">Here you can see a gallery of all your saved text. Click on a piece of text for more options.</TextBlock>
         </Grid>
     </Grid>
 </Page>
