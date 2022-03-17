@@ -13,6 +13,9 @@
     </Page.Resources>
     <Grid>
         <StackPanel HorizontalAlignment="Left" Margin="30,0,0,0">
+            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,12,0,0" Text="Storage"/>
+            <Button x:Name="dbLoc" Content="Open Database Location" Margin="0,12,0,0"/>
+
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,12,0,0" Text="About"/>
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" x:Name="versiontext"/>
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Text="Created 2021-2022 by Aidan Cheung"/>
