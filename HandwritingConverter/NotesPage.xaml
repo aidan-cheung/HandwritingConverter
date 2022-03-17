@@ -12,6 +12,17 @@
         <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
     </Page.Resources>
     <Grid>
-        <TextBlock Padding="30,16,0,0">Here you can see a gallery of all your saved text. Click on a piece of text for more options.</TextBlock>
+        <TextBlock Padding="30,16,0,0" TextWrapping="Wrap">Here is where you can find all of your saved text. Click on the Grab Data button to display all the saved text.</TextBlock>
+
+        <StackPanel Margin="30,50,0,0">
+            <Button Click="AddData">Grab Data</Button>
+            <ListView Name="Output">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
     </Grid>
 </Page>

@@ -23,6 +23,7 @@ namespace HandwritingConverter
             Debug.WriteLine(GetData());
         }
 
+        // Use the note class to store notes
         class note
         {
             public Guid guid;
@@ -40,7 +41,7 @@ namespace HandwritingConverter
             {
                 db.Open();
 
-                SqliteCommand selectCommand = new SqliteCommand("SELECT * FROM convertedText", db);
+                SqliteCommand selectCommand = new SqliteCommand("SELECT converted FROM convertedText", db);
 
                 SqliteDataReader query = selectCommand.ExecuteReader();
 
@@ -53,6 +54,12 @@ namespace HandwritingConverter
             }
 
             return entries;
+        }
+
+        private void AddData(object sender, RoutedEventArgs e)
+        {
+
+            Output.ItemsSource = GetData();
         }
     }
 }
