@@ -29,6 +29,7 @@
                 VerticalAlignment="Center"
                 Margin="12,0,0,0"
                 Style="{StaticResource CaptionTextBlockStyle}" />
+                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEA24;" FontSize="10" FontWeight="Normal"/>
             </StackPanel>
         </Border>
         <muxc:NavigationView x:Name="NavView"          
