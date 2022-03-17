@@ -12,24 +12,28 @@
         <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
     </Page.Resources>
     <Grid>
-
-        <Grid>
-            <TextBlock Padding="30,16,0,0">Welcome to the Handwriting to Text Converter! Use the mouse to write a word or sentence in the box on the left, click the button in the middle and your handwriting will be converted to text.</TextBlock>
-            <Button Content="Save" Margin="1040,729,0,0" Click="AddData" VerticalAlignment="Top"/>
-        </Grid>
-        <Grid Height="1080" VerticalAlignment="Bottom">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+        <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid Background="White" BorderBrush="Gray" BorderThickness="1" CornerRadius="12" Height="425" VerticalAlignment="Top" HorizontalAlignment="Center" Width="800" Margin="0,300,0,0">
-                <InkCanvas x:Name="inkCanvas"/>
-            </Grid>
-            <Grid Grid.Column="1"  Background="White" BorderBrush="Gray" BorderThickness="1" CornerRadius="12" Height="424" VerticalAlignment="Top" HorizontalAlignment="Center" Width="800" Margin="0,300,0,0">
-                <TextBlock x:Name="recognitionResult" Foreground="Black" Grid.ColumnSpan="2" Margin="10, 10, 10, 10"/>
-            </Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.ColumnSpan="2" Padding="30,30,30,30" TextWrapping="Wrap">Welcome to the Handwriting to Text Converter! 
+                Use the mouse to write a word or sentence in the box on the left, click the button in the middle 
+                and your handwriting will be converted to text.</TextBlock>
+            <Button Grid.Row="2" Grid.Column="1" Content="Save" Margin="90,0,0,45" Click="AddData" VerticalAlignment="Bottom"/>
+
+        <Grid Background="White" BorderBrush="Gray" BorderThickness="1" CornerRadius="12" Margin="80,80,80,80" Grid.Row="1" Grid.RowSpan="2">
+            <InkCanvas x:Name="inkCanvas"/>
         </Grid>
 
-        <Button x:Name="convert" Content="Convert" Margin="0,559,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="32"/>
+        <Grid Grid.Column="1"  Background="White" BorderBrush="Gray" BorderThickness="1" CornerRadius="12" Margin="80,80,80,80" Grid.Row="1" Grid.RowSpan="2">
+            <TextBlock x:Name="recognitionResult" Foreground="Black" Margin="10, 10, 10, 10"/>
+        </Grid>
+
+        <Button x:Name="convert" Content="Convert" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </Page>
