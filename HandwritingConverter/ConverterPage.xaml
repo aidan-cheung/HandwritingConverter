@@ -25,7 +25,7 @@
                 Use the mouse to write a word or sentence in the box on the left, click the button in the middle 
                 and your handwriting will be converted to text.</TextBlock>
         <Button Grid.Row="2" Grid.Column="1" Margin="90,0,0,45" Click="AddData" VerticalAlignment="Bottom">
-            <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE74E;"/>
+            <FontIcon FontFamily="Segoe Fluent Icons,Segoe MDL2 Assets" Glyph="&#xE74E;"/>
         </Button>
 
         <Grid Background="White" BorderBrush="Gray" BorderThickness="1" CornerRadius="12" Margin="80,80,80,80" Grid.Row="1" Grid.RowSpan="2">
@@ -37,7 +37,7 @@
         </Grid>
 
         <Button x:Name="convert" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE974;"/>
+            <FontIcon FontFamily="Segoe Fluent Icons,Segoe MDL2 Assets" Glyph="&#xE974;"/>
         </Button>
     </Grid>
 </Page>
