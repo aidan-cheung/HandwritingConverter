@@ -20,41 +20,72 @@ namespace HandwritingConverter
         public NotesPage()
         {
             this.InitializeComponent();
-            Debug.WriteLine(GetData());
-            Output.ItemsSource = GetData();
+            Output.ItemsSource = note.getNotes();
         }
 
         // Use the note class to store notes
-        class note
+        public class note
         {
             public Guid guid;
             public Image image;
             public string converted;
-        }
 
-        public static List<String> GetData()
-        {
-            List<String> entries = new List<string>();
-
-            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
-            using (SqliteConnection db =
-               new SqliteConnection($"Filename={dbpath}"))
+            public note(Guid key, Image img, string conv)
             {
-                db.Open();
-
-                SqliteCommand selectCommand = new SqliteCommand("SELECT converted FROM convertedText", db);
-
-                SqliteDataReader query = selectCommand.ExecuteReader();
-
-                while (query.Read())
-                {
-                    entries.Add(query.GetString(0));
-                }
-
-                db.Close();
+                guid = key;
+                image = img;
+                converted = conv;
             }
 
-            return entries;
+            public static List<String> getNotes()
+            {
+                List<Guid> guid = new List<Guid>();
+                List<String> converted = new List<string>();
+
+                string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
+                using (SqliteConnection db =
+                   new SqliteConnection($"Filename={dbpath}"))
+                {
+                    db.Open();
+
+                    SqliteCommand selectCommand = new SqliteCommand("SELECT guid,converted FROM convertedText", db);
+
+                    SqliteDataReader query = selectCommand.ExecuteReader();
+
+                    while (query.Read())
+                    {
+                        Guid temp_guid = query.GetGuid(0);
+                        String temp_converted = query.GetString(1);
+
+                        converted.Add(temp_converted);
+                        guid.Add(temp_guid);
+                    }
+
+                    db.Close();
+                }
+
+                return converted;
+            }
+
+            private void deleteNote(object sender, RoutedEventArgs e)
+            {
+                string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
+                using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+                {
+                    db.Open();
+
+                    SqliteCommand deleteCommand = new SqliteCommand();
+                    deleteCommand.Connection = db;
+
+                    Guid guid = new Guid();
+
+                    deleteCommand.CommandText = $"DELETE FROM convertedText WHERE guid={guid}";
+
+                    deleteCommand.ExecuteReader();
+
+                    db.Close();
+                }
+            }
         }
     }
 }

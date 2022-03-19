@@ -18,7 +18,19 @@
             <ListView Name="Output">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding}"/>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding}"/>
+                            <Button Content="Options">
+                                <Button.Flyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Text="Narrate"/>
+                                        <MenuFlyoutItem Text="Copy"/>
+                                        <MenuFlyoutItem Text="Export"/>
+                                        <MenuFlyoutItem Text="Delete"/>
+                                    </MenuFlyout>
+                                </Button.Flyout>
+                            </Button>
+                        </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
