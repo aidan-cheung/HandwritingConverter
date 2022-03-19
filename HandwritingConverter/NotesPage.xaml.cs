@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using Windows.Storage;
@@ -20,72 +21,50 @@ namespace HandwritingConverter
         public NotesPage()
         {
             this.InitializeComponent();
-            Output.ItemsSource = note.getNotes();
+            Output.ItemsSource = getNotes();
+            // ObservableCollection<note> Notes = getNotes();
         }
 
-        // Use the note class to store notes
-        public class note
+        public void deleteNote(object sender, RoutedEventArgs e)
         {
-            public Guid guid;
-            public Image image;
-            public string converted;
-
-            public note(Guid key, Image img, string conv)
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
+            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
             {
-                guid = key;
-                image = img;
-                converted = conv;
+                db.Open();
+
+                SqliteCommand deleteCommand = new SqliteCommand();
+                deleteCommand.Connection = db;
+
+                Guid guid = new Guid();
+
+                deleteCommand.CommandText = $"DELETE FROM convertedText WHERE guid={guid}";
+                deleteCommand.ExecuteReader();
+
+                db.Close();
             }
+        }
 
-            public static List<String> getNotes()
+        public static ObservableCollection<Note> getNotes()
+        {
+            ObservableCollection<Note> notes = new ObservableCollection<Note>();
+
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
+            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
             {
-                List<Guid> guid = new List<Guid>();
-                List<String> converted = new List<string>();
+                db.Open();
 
-                string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
-                using (SqliteConnection db =
-                   new SqliteConnection($"Filename={dbpath}"))
+                SqliteCommand selectCommand = new SqliteCommand("SELECT guid,converted FROM convertedText", db);
+                SqliteDataReader query = selectCommand.ExecuteReader();
+
+                while (query.Read())
                 {
-                    db.Open();
-
-                    SqliteCommand selectCommand = new SqliteCommand("SELECT guid,converted FROM convertedText", db);
-
-                    SqliteDataReader query = selectCommand.ExecuteReader();
-
-                    while (query.Read())
-                    {
-                        Guid temp_guid = query.GetGuid(0);
-                        String temp_converted = query.GetString(1);
-
-                        converted.Add(temp_converted);
-                        guid.Add(temp_guid);
-                    }
-
-                    db.Close();
+                    notes.Add(new Note(query.GetGuid(0), query.GetString(1)));
                 }
 
-                return converted;
+                db.Close();
             }
 
-            private void deleteNote(object sender, RoutedEventArgs e)
-            {
-                string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
-                using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
-                {
-                    db.Open();
-
-                    SqliteCommand deleteCommand = new SqliteCommand();
-                    deleteCommand.Connection = db;
-
-                    Guid guid = new Guid();
-
-                    deleteCommand.CommandText = $"DELETE FROM convertedText WHERE guid={guid}";
-
-                    deleteCommand.ExecuteReader();
-
-                    db.Close();
-                }
-            }
+            return notes;
         }
     }
 }
