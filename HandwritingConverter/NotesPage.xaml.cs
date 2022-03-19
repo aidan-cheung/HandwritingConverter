@@ -21,6 +21,7 @@ namespace HandwritingConverter
         {
             this.InitializeComponent();
             Debug.WriteLine(GetData());
+            Output.ItemsSource = GetData();
         }
 
         // Use the note class to store notes
@@ -54,12 +55,6 @@ namespace HandwritingConverter
             }
 
             return entries;
-        }
-
-        private void AddData(object sender, RoutedEventArgs e)
-        {
-
-            Output.ItemsSource = GetData();
         }
     }
 }

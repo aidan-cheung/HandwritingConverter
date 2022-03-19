@@ -15,7 +15,6 @@
         <TextBlock Padding="30,16,0,0" TextWrapping="Wrap">Here is where you can find all of your saved text. Click on the Grab Data button to display all the saved text.</TextBlock>
 
         <StackPanel Margin="30,50,0,0">
-            <Button Click="AddData">Grab Data</Button>
             <ListView Name="Output">
                 <ListView.ItemTemplate>
                     <DataTemplate>
