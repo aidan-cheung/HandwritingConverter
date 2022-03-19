@@ -34,9 +34,7 @@
             <InkToolbarEraserButton/>
         </InkToolbar>
 
-        <Grid Grid.Column="1"  Background="White" BorderBrush="Gray" BorderThickness="1" CornerRadius="12" Margin="80,80,80,80" Grid.Row="1" Grid.RowSpan="2">
-            <TextBlock x:Name="recognitionResult" Foreground="Black" Margin="10, 10, 10, 10" TextWrapping="Wrap"/>
-        </Grid>
+        <TextBox x:Name="recognitionResult" Foreground="Black" TextWrapping="Wrap" RequestedTheme="Light" Padding="10" Grid.Column="1"  Background="White" BorderBrush="Gray" BorderThickness="1" CornerRadius="12" Margin="80" Grid.Row="1" Grid.RowSpan="2"/>
 
         <Button Grid.Row="2" Grid.Column="1" Margin="90,0,0,45" Click="AddData" VerticalAlignment="Bottom" ToolTipService.ToolTip="Save Text to Notes">
             <FontIcon FontFamily="Segoe Fluent Icons,Segoe MDL2 Assets" Glyph="&#xE74E;"/>
