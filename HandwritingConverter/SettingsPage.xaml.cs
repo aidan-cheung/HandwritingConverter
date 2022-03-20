@@ -1,5 +1,8 @@
 ﻿using Windows.UI.Xaml.Controls;
 using Windows.ApplicationModel;
+using Windows.Storage;
+using System;
+using Windows.UI.Xaml;
 
 namespace HandwritingConverter
 {
@@ -18,6 +21,12 @@ namespace HandwritingConverter
             string appVersion = $"Handwriting Converter {Package.Current.Id.Version.Major}.{Package.Current.Id.Version.Minor}.{Package.Current.Id.Version.Build} Alpha";
 
             versiontext.Text = appVersion;
+        }
+
+        private async void openDb(object sender, RoutedEventArgs e)
+        {
+            StorageFolder db_folder = ApplicationData.Current.LocalFolder;
+            await Windows.System.Launcher.LaunchFolderAsync(db_folder);
         }
     }
 }
