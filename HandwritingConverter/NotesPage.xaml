@@ -15,7 +15,7 @@
         <TextBlock Padding="30,16,0,0" TextWrapping="Wrap">Here is where you can find all of your saved text. Click on the options button for more options.</TextBlock>
 
         <StackPanel Margin="30,50,0,0">
-            <GridView ItemsSource="{x:Bind ViewModel.Notes}">
+            <GridView x:Name="NotesGridView" ItemsSource="{x:Bind ViewModel.Notes}">
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="local:Note">
                         <ScrollViewer>

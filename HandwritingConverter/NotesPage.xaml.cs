@@ -42,9 +42,7 @@ namespace HandwritingConverter
 
                     while (query.Read())
                     {
-                        // this.recordings.Add(new Recording(){ ArtistName = "Johann Sebastian Bach",
-                        // CompositionName = "Mass in B minor", ReleaseDateTime = new DateTime(1748, 7, 8)
-                        Notes.Add(new Note() { Id = query.GetGuid(0), Converted = query.GetString(1)});
+                        Notes.Add(new Note() { Id = query.GetGuid(0), Converted = query.GetString(1) });
                     }
 
                     db.Close();
@@ -53,8 +51,12 @@ namespace HandwritingConverter
             }
         }
 
-        public void deleteNote(object sender, RoutedEventArgs e)
+        private void deleteNote(object sender, RoutedEventArgs e)
         {
+            Debug.WriteLine("Before: " + ViewModel.Notes);
+            ViewModel.Notes.Remove(NotesGridView.SelectedItem as Note);
+            Debug.WriteLine("After: " + ViewModel.Notes);
+
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
             {
@@ -63,36 +65,11 @@ namespace HandwritingConverter
                 SqliteCommand deleteCommand = new SqliteCommand();
                 deleteCommand.Connection = db;
 
-                var tmpnote = (Note)e.OriginalSource;
-
-                deleteCommand.CommandText = $"DELETE FROM convertedText WHERE guid={tmpnote.Id}";
+                deleteCommand.CommandText = $"DELETE FROM convertedText WHERE guid={new Guid()}";
                 deleteCommand.ExecuteReader();
 
                 db.Close();
             }
         }
-
-        /* public static IReadOnlyList<Note> getNotes()
-        {
-            Notes.Clear();
-
-            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
-            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
-            {
-                db.Open();
-
-                SqliteCommand selectCommand = new SqliteCommand("SELECT guid,converted FROM convertedText", db);
-                SqliteDataReader query = selectCommand.ExecuteReader();
-
-                while (query.Read())
-                {
-                    Notes.Add(new Note(query.GetGuid(0), query.GetString(1)));
-                }
-
-                db.Close();
-            }
-
-            return Notes;
-        } */
     }
 }
