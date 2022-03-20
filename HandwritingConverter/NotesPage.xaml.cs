@@ -18,11 +18,11 @@ namespace HandwritingConverter
     */
     public sealed partial class NotesPage : Page
     {
+        public static ObservableCollection<Note> Notes { get; } = new ObservableCollection<Note>();
         public NotesPage()
         {
             this.InitializeComponent();
             Output.ItemsSource = getNotes();
-            // ObservableCollection<note> Notes = getNotes();
         }
 
         public void deleteNote(object sender, RoutedEventArgs e)
@@ -44,10 +44,8 @@ namespace HandwritingConverter
             }
         }
 
-        public static ObservableCollection<Note> getNotes()
+        public static IReadOnlyList<Note> getNotes()
         {
-            ObservableCollection<Note> notes = new ObservableCollection<Note>();
-
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
             {
@@ -58,13 +56,13 @@ namespace HandwritingConverter
 
                 while (query.Read())
                 {
-                    notes.Add(new Note(query.GetGuid(0), query.GetString(1)));
+                    Notes.Add(new Note(query.GetGuid(0), query.GetString(1)));
                 }
 
                 db.Close();
             }
 
-            return notes;
+            return Notes;
         }
     }
 }

@@ -8,8 +8,8 @@ namespace HandwritingConverter
 {
     public class Note
     {
-        private Guid Id { get; set; }
-        private string Converted { get; set; }
+        public Guid Id { get; set; }
+        public string Converted { get; set; }
 
         public Note(Guid key, string conv)
         {

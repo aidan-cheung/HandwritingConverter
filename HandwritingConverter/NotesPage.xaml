@@ -19,7 +19,7 @@
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="local:Note">
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding}"/>
+                            <TextBlock Text="{x:Bind Converted}" Padding="10" TextWrapping="Wrap"/>
                             <Button Content="Options">
                                 <Button.Flyout>
                                     <MenuFlyout>
