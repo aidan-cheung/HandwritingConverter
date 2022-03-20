@@ -17,9 +17,9 @@
         <StackPanel Margin="30,50,0,0">
             <GridView Name="Output">
                 <GridView.ItemTemplate>
-                    <DataTemplate x:DataType="local:Note">
+                    <DataTemplate x:Name="notesData" x:DataType="local:Note">
                         <ScrollViewer>
-                            <StackPanel Orientation="Vertical" Width="100px" Height="100px">
+                            <StackPanel Orientation="Vertical" Width="100px" Height="100px" CornerRadius="12" BorderThickness="1" BorderBrush="Gray">
                                 <TextBlock Text="{x:Bind Converted}" Padding="10" TextWrapping="Wrap"/>
                                 <Button Content="Options">
                                     <Button.Flyout>
@@ -27,7 +27,7 @@
                                             <MenuFlyoutItem Text="Narrate"/>
                                             <MenuFlyoutItem Text="Copy"/>
                                             <MenuFlyoutItem Text="Export"/>
-                                            <MenuFlyoutItem Text="Delete"/>
+                                            <MenuFlyoutItem Text="Delete" DataContext="{x:Bind Id}" Click="deleteNote"/>
                                         </MenuFlyout>
                                     </Button.Flyout>
                                 </Button>
