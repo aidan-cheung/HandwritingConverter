@@ -6,7 +6,6 @@ using Windows.UI.Input.Inking;
 using Windows.UI.Xaml.Controls;
 using Microsoft.Data.Sqlite;
 using Windows.Storage;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace HandwritingConverter

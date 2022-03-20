@@ -10,11 +10,5 @@ namespace HandwritingConverter
     {
         public Guid Id { get; set; }
         public string Converted { get; set; }
-
-        public Note(Guid key, string conv)
-        {
-            Id = key;
-            Converted = conv;
-        }
     }
 }

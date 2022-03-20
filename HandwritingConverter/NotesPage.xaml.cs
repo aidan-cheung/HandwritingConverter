@@ -18,17 +18,43 @@ namespace HandwritingConverter
     */
     public sealed partial class NotesPage : Page
     {
-        public static ObservableCollection<Note> Notes { get; } = new ObservableCollection<Note>();
+        public NoteViewModel ViewModel { get; set; }
         public NotesPage()
         {
             this.InitializeComponent();
-            Output.ItemsSource = getNotes();
+            this.ViewModel = new NoteViewModel();
+        }
+
+        public class NoteViewModel
+        {
+            private ObservableCollection<Note> notes = new ObservableCollection<Note>();
+            public ObservableCollection<Note> Notes { get { return notes; } }
+
+            public NoteViewModel()
+            {
+                string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
+                using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+                {
+                    db.Open();
+
+                    SqliteCommand selectCommand = new SqliteCommand("SELECT guid,converted FROM convertedText", db);
+                    SqliteDataReader query = selectCommand.ExecuteReader();
+
+                    while (query.Read())
+                    {
+                        // this.recordings.Add(new Recording(){ ArtistName = "Johann Sebastian Bach",
+                        // CompositionName = "Mass in B minor", ReleaseDateTime = new DateTime(1748, 7, 8)
+                        Notes.Add(new Note() { Id = query.GetGuid(0), Converted = query.GetString(1)});
+                    }
+
+                    db.Close();
+                }
+
+            }
         }
 
         public void deleteNote(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine("DataContext: " + DataContext);
-
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
             {
@@ -37,18 +63,16 @@ namespace HandwritingConverter
                 SqliteCommand deleteCommand = new SqliteCommand();
                 deleteCommand.Connection = db;
 
-                var note = new Guid();
+                var tmpnote = (Note)e.OriginalSource;
 
-                
-
-                deleteCommand.CommandText = $"DELETE FROM convertedText WHERE guid={note}";
+                deleteCommand.CommandText = $"DELETE FROM convertedText WHERE guid={tmpnote.Id}";
                 deleteCommand.ExecuteReader();
 
                 db.Close();
             }
         }
 
-        public static IReadOnlyList<Note> getNotes()
+        /* public static IReadOnlyList<Note> getNotes()
         {
             Notes.Clear();
 
@@ -69,6 +93,6 @@ namespace HandwritingConverter
             }
 
             return Notes;
-        }
+        } */
     }
 }
