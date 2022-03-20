@@ -6,6 +6,8 @@ using Windows.UI.Input.Inking;
 using Windows.UI.Xaml.Controls;
 using Microsoft.Data.Sqlite;
 using Windows.Storage;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace HandwritingConverter
 {
@@ -90,11 +92,10 @@ namespace HandwritingConverter
             }
         }
 
-        private void AddData(object sender, RoutedEventArgs e)
+        private async void AddData(object sender, RoutedEventArgs e)
         {
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
-            using (SqliteConnection db =
-              new SqliteConnection($"Filename={dbpath}"))
+            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
             {
                 db.Open();
 
@@ -109,8 +110,12 @@ namespace HandwritingConverter
                 insertCommand.ExecuteReader();
 
                 db.Close();
+
             }
 
+            savedFeedback.Glyph = "\uE73E";
+            await Task.Delay(1000);
+            savedFeedback.Glyph = "\uE74E";
         }
     }
 }
