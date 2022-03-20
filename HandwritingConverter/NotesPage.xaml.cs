@@ -46,6 +46,8 @@ namespace HandwritingConverter
 
         public static IReadOnlyList<Note> getNotes()
         {
+            Notes.Clear();
+
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
             {
