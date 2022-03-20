@@ -18,19 +18,21 @@
             <GridView Name="Output">
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="local:Note">
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{x:Bind Converted}" Padding="10" TextWrapping="Wrap"/>
-                            <Button Content="Options">
-                                <Button.Flyout>
-                                    <MenuFlyout>
-                                        <MenuFlyoutItem Text="Narrate"/>
-                                        <MenuFlyoutItem Text="Copy"/>
-                                        <MenuFlyoutItem Text="Export"/>
-                                        <MenuFlyoutItem Text="Delete"/>
-                                    </MenuFlyout>
-                                </Button.Flyout>
-                            </Button>
-                        </StackPanel>
+                        <ScrollViewer>
+                            <StackPanel Orientation="Vertical" Width="100px" Height="100px">
+                                <TextBlock Text="{x:Bind Converted}" Padding="10" TextWrapping="Wrap"/>
+                                <Button Content="Options">
+                                    <Button.Flyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem Text="Narrate"/>
+                                            <MenuFlyoutItem Text="Copy"/>
+                                            <MenuFlyoutItem Text="Export"/>
+                                            <MenuFlyoutItem Text="Delete"/>
+                                        </MenuFlyout>
+                                    </Button.Flyout>
+                                </Button>
+                            </StackPanel>
+                        </ScrollViewer>
                     </DataTemplate>
                 </GridView.ItemTemplate>
             </GridView>
