@@ -15,13 +15,13 @@
         <TextBlock Padding="30,16,0,0" TextWrapping="Wrap">Here is where you can find all of your saved text. Click on the options button for more options.</TextBlock>
 
         <StackPanel Margin="30,50,0,0">
+            <AppBarButton Icon="Delete" Label="Delete Note" Click="deleteNote"/>
             <GridView x:Name="NotesGridView" ItemsSource="{x:Bind ViewModel.Notes}">
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="local:Note">
                         <ScrollViewer>
                             <StackPanel Orientation="Vertical" Width="100px" Height="100px" CornerRadius="12" BorderThickness="1" BorderBrush="Gray">
                                 <TextBlock Text="{x:Bind Converted}" Padding="10" TextWrapping="Wrap"/>
-                                <Button Content="Delete" Click="deleteNote"/>
                             </StackPanel>
                         </ScrollViewer>
                     </DataTemplate>
