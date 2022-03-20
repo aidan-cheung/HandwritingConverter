@@ -12,7 +12,7 @@
         <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
     </Page.Resources>
     <Grid>
-        <TextBlock Padding="30,16,0,0" TextWrapping="Wrap">Here is where you can find all of your saved text. Click on the options button for more options.</TextBlock>
+        <TextBlock Padding="30,16,0,0" TextWrapping="Wrap">Here is where you can find all of your saved text. Select a note, then click on the delete button to remove a note.</TextBlock>
 
         <StackPanel Margin="30,50,0,0">
             <AppBarButton Icon="Delete" Label="Delete Note" Click="deleteNote"/>

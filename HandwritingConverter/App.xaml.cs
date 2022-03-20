@@ -22,11 +22,6 @@ namespace HandwritingConverter
             {
                 await ApplicationData.Current.LocalFolder.CreateFileAsync("handwritingConverter.db", CreationCollisionOption.OpenIfExists);
                 string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
-                Debug.WriteLine("");
-                Debug.WriteLine("Database Path");
-                Debug.WriteLine(dbpath);
-                Debug.WriteLine("");
-                Debug.WriteLine("");
                 using (SqliteConnection db =
                    new SqliteConnection($"Filename={dbpath}"))
                 {
