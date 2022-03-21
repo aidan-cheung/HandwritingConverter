@@ -12,27 +12,33 @@
         <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
     </Page.Resources>
     <Grid>
-        <TextBlock Padding="30,16,0,0" TextWrapping="Wrap">Here is where you can find all of your saved text. Select a note, then click on the delete button to remove a note.</TextBlock>
+        <StackPanel Margin="30,16,0,0">
+            <TextBlock TextWrapping="Wrap" Margin="10">Here is where you can find all of your saved text. Select a note, then click on the delete button to remove a note.</TextBlock>
 
-        <StackPanel Margin="30,50,0,0">
-            <StackPanel Orientation="Horizontal">
-                <AppBarButton Icon="Character" Label="Narrate"/>
-                <AppBarButton Icon="SaveLocal" Label="Export"/>
-                <AppBarButton Icon="Copy" Label="Copy"/>
-                <AppBarSeparator/>
-                <AppBarButton Icon="Delete" Label="Delete" Click="deleteNote"/>
+            <StackPanel Margin="10">
+                <StackPanel Orientation="Horizontal">
+                    <AppBarButton Icon="Character" Label="Narrate"/>
+                    <AppBarButton Icon="SaveLocal" Label="Export"/>
+                    <AppBarButton Icon="Copy" Label="Copy"/>
+                    <AppBarSeparator/>
+                    <AppBarButton Icon="Delete" Label="Delete" Click="deleteNote"/>
+                </StackPanel>
+
+                <TextBox PlaceholderText="Search" Width="200" Margin="10" HorizontalAlignment="Left"/>
+
+                <GridView x:Name="NotesGridView" ItemsSource="{x:Bind ViewModel.Notes}">
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="local:Note">
+                            <ScrollViewer>
+                                <StackPanel Orientation="Vertical" Width="100px" Height="100px" CornerRadius="12" BorderThickness="1" BorderBrush="Gray">
+                                    <TextBlock Text="{x:Bind Converted}" Padding="10" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
             </StackPanel>
-            <GridView x:Name="NotesGridView" ItemsSource="{x:Bind ViewModel.Notes}">
-                <GridView.ItemTemplate>
-                    <DataTemplate x:DataType="local:Note">
-                        <ScrollViewer>
-                            <StackPanel Orientation="Vertical" Width="100px" Height="100px" CornerRadius="12" BorderThickness="1" BorderBrush="Gray">
-                                <TextBlock Text="{x:Bind Converted}" Padding="10" TextWrapping="Wrap"/>
-                            </StackPanel>
-                        </ScrollViewer>
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-            </GridView>
         </StackPanel>
+        
     </Grid>
 </Page>
