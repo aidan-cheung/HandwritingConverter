@@ -72,5 +72,40 @@ namespace HandwritingConverter
                 db.Close();
             }
         }
+
+        private static string binarySearch(string[] array, string searchTerm)
+        {
+            int lower = 0;
+            int upper = array.Length;
+            int mid = 0;
+            bool found = false;
+
+            while (lower <= upper)
+            {
+                mid = (lower + upper) / 2;
+
+                if (array[mid] == searchTerm)
+                {
+                    found = true;
+                }
+                else if (string.Compare(array[mid], searchTerm) > 0)
+                {
+                    upper = mid - 1;
+                }
+                else
+                {
+                    lower = mid + 1;
+                }
+            }
+
+            if (found)
+            {
+                return array[mid];
+            }
+            else
+            {
+                return "No result";
+            }
+        }
     }
 }
