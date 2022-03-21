@@ -104,7 +104,9 @@ namespace HandwritingConverter
                 Guid guid = Guid.NewGuid();
                 string result = recognitionResult.Text;
 
-                insertCommand.CommandText = $"INSERT INTO convertedText VALUES ('{guid}', '', '{result}');";
+                insertCommand.CommandText = $"INSERT INTO convertedText VALUES (@guid, null, @result);";
+                insertCommand.Parameters.AddWithValue("@guid", guid);
+                insertCommand.Parameters.AddWithValue("@result", result);
 
                 insertCommand.ExecuteReader();
 
