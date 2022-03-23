@@ -18,7 +18,7 @@
             <StackPanel Margin="10">
                 <StackPanel Orientation="Horizontal">
                     <AppBarButton Icon="Character" Label="Narrate"/>
-                    <AppBarButton Icon="SaveLocal" Label="Export"/>
+                    <AppBarButton Icon="SaveLocal" Label="Export" Click="exportNote"/>
                     <AppBarButton x:Name="copyButton" Icon="Copy" Label="Copy" Click="copyNote"/>
                     <AppBarSeparator/>
                     <AppBarButton Icon="Delete" Label="Delete" Click="deleteNote"/>

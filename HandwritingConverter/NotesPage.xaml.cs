@@ -101,6 +101,30 @@ namespace HandwritingConverter
             }
         }
 
+        private async void exportNote(object sender, RoutedEventArgs e)
+        {
+            if (NotesGridView.SelectedItem != null)
+            {
+                Note note = NotesGridView.SelectedItem as Note;
+                string noteToSave = note.Converted;
+
+                var filePicker = new Windows.Storage.Pickers.FileSavePicker();
+                filePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
+                filePicker.FileTypeChoices.Add("Plain Text", new List<string>() { ".txt" });
+                filePicker.SuggestedFileName = "New Note";
+
+                StorageFile file = await filePicker.PickSaveFileAsync();
+                if (file != null)
+                {
+                    CachedFileManager.DeferUpdates(file);
+
+                    await FileIO.WriteTextAsync(file, noteToSave);
+
+                    Windows.Storage.Provider.FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
+                }
+            }
+        }
+
         private static string binarySearch(string[] array, string searchTerm)
         {
             int lower = 0;
