@@ -7,6 +7,8 @@ using System.IO;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.ApplicationModel.DataTransfer;
+using System.Threading.Tasks;
 
 namespace HandwritingConverter
 {
@@ -75,6 +77,27 @@ namespace HandwritingConverter
 
                     db.Close();
                 }
+            }
+        }
+
+        private async void copyNote(object sender, RoutedEventArgs e)
+        {
+            if (NotesGridView.SelectedItem != null)
+            {
+                Note note = NotesGridView.SelectedItem as Note;
+                string textToCopy = note.Converted;
+                DataPackage dataPackage = new DataPackage();
+
+                dataPackage.RequestedOperation = DataPackageOperation.Copy;
+                dataPackage.SetText(textToCopy);
+
+                Clipboard.SetContent(dataPackage);
+
+                copyButton.Icon = new SymbolIcon(Symbol.Accept);
+                copyButton.Label = "Copied!";
+                await Task.Delay(1000);
+                copyButton.Icon = new SymbolIcon(Symbol.Copy);
+                copyButton.Label = "Copy";
             }
         }
 

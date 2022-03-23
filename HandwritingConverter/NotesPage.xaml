@@ -19,7 +19,7 @@
                 <StackPanel Orientation="Horizontal">
                     <AppBarButton Icon="Character" Label="Narrate"/>
                     <AppBarButton Icon="SaveLocal" Label="Export"/>
-                    <AppBarButton Icon="Copy" Label="Copy"/>
+                    <AppBarButton x:Name="copyButton" Icon="Copy" Label="Copy" Click="copyNote"/>
                     <AppBarSeparator/>
                     <AppBarButton Icon="Delete" Label="Delete" Click="deleteNote"/>
                 </StackPanel>
