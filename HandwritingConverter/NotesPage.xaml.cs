@@ -127,7 +127,7 @@ namespace HandwritingConverter
 
         private async void narrateNote(object sender, RoutedEventArgs e)
         {
-            if (NotesGridView != null)
+            if (NotesGridView.SelectedItem != null)
             {
                 Note note = NotesGridView.SelectedItem as Note;
                 string noteToNarrate = note.Converted;
@@ -140,14 +140,37 @@ namespace HandwritingConverter
             }
         }
 
-        private static string binarySearch(string[] array, string searchTerm)
+        private void searchNotes(object sender, RoutedEventArgs e)
+        {
+
+            string noteToSearch = searchBox.Text;
+            var notesArray = new List<string>();
+
+            for (int i = 0; i < ViewModel.Notes.Count; i++)
+            {
+                notesArray.Add(ViewModel.Notes[i].Converted);
+            }
+
+            var result = binarySearch(notesArray, noteToSearch);
+
+            if (result == "No result")
+            {
+                searchResult.Text = "No result";
+            }
+            else
+            {
+                searchResult.Text = "Found in notes";
+            }
+        }
+
+        private static string binarySearch(List<string> array, string searchTerm)
         {
             int lower = 0;
-            int upper = array.Length;
+            int upper = array.Count;
             int mid = 0;
             bool found = false;
 
-            while (lower <= upper)
+            while (lower <= upper && found == false)
             {
                 mid = (lower + upper) / 2;
 
