@@ -125,6 +125,21 @@ namespace HandwritingConverter
             }
         }
 
+        private async void narrateNote(object sender, RoutedEventArgs e)
+        {
+            if (NotesGridView != null)
+            {
+                Note note = NotesGridView.SelectedItem as Note;
+                string noteToNarrate = note.Converted;
+
+                MediaElement mediaElement = new MediaElement();
+                var synth = new Windows.Media.SpeechSynthesis.SpeechSynthesizer();
+                Windows.Media.SpeechSynthesis.SpeechSynthesisStream stream = await synth.SynthesizeTextToStreamAsync(noteToNarrate);
+                mediaElement.SetSource(stream, stream.ContentType);
+                mediaElement.Play();
+            }
+        }
+
         private static string binarySearch(string[] array, string searchTerm)
         {
             int lower = 0;
