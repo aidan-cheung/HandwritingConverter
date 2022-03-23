@@ -53,25 +53,28 @@ namespace HandwritingConverter
 
         private void deleteNote(object sender, RoutedEventArgs e)
         {
-            Note note = NotesGridView.SelectedItem as Note;
-            ViewModel.Notes.Remove(note);
-
-            Guid guid = note.Id;
-
-            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
-            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+            if (NotesGridView.SelectedItem != null)
             {
-                db.Open();
+                Note note = NotesGridView.SelectedItem as Note;
+                ViewModel.Notes.Remove(note);
 
-                SqliteCommand deleteCommand = new SqliteCommand();
-                deleteCommand.Connection = db;
+                Guid guid = note.Id;
 
-                deleteCommand.CommandText = $"DELETE FROM convertedText WHERE guid=@guid";
-                deleteCommand.Parameters.AddWithValue("@guid", guid);
-                
-                deleteCommand.ExecuteReader();
+                string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
+                using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+                {
+                    db.Open();
 
-                db.Close();
+                    SqliteCommand deleteCommand = new SqliteCommand();
+                    deleteCommand.Connection = db;
+
+                    deleteCommand.CommandText = $"DELETE FROM convertedText WHERE guid=@guid";
+                    deleteCommand.Parameters.AddWithValue("@guid", guid);
+
+                    deleteCommand.ExecuteReader();
+
+                    db.Close();
+                }
             }
         }
 
