@@ -163,6 +163,40 @@ namespace HandwritingConverter
             }
         }
 
+        private static List<string> bubbleSort(List<string> array)
+        {
+            int counter = 0;
+            bool swapped = true;
+            int swaps = 0;
+
+            while (swapped == true)
+            {
+                while (counter < array.Count - 1)
+                {
+                    if (string.Compare(array[counter], array[counter + 1]) > 0)
+                    {
+                        var temp = array[counter];
+                        array[counter] = array[counter + 1];
+                        array[counter + 1] = temp;
+
+                        swaps++;
+                    }
+                    counter++;
+                }
+                if (swaps == 0)
+                {
+                    swapped = false;
+                }
+                else
+                {
+                    swaps = 0;
+                    counter = 0;
+                }
+            }
+
+            return array;
+        }
+
         private static string binarySearch(List<string> array, string searchTerm)
         {
             int lower = 0;
@@ -170,7 +204,7 @@ namespace HandwritingConverter
             int mid = 0;
             bool found = false;
 
-            while (lower <= upper && found == false)
+            while (lower >= upper && found == false)
             {
                 mid = (lower + upper) / 2;
 
