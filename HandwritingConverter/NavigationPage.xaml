@@ -36,7 +36,8 @@
         DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
         PaneDisplayMode="Top"
         Loaded="NavView_Loaded"
-        ItemInvoked="NavView_ItemInvoked">
+        ItemInvoked="NavView_ItemInvoked"
+        BackRequested="NavView_BackRequested">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem Tag="converter" Content="Converter"/>
                 <muxc:NavigationViewItem Tag="notes"  Content="Notes"/>
