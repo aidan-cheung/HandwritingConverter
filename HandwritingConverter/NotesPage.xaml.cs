@@ -30,7 +30,11 @@ namespace HandwritingConverter
         public class NoteViewModel
         {
             private ObservableCollection<Note> notes = new ObservableCollection<Note>();
-            public ObservableCollection<Note> Notes { get { return notes; } }
+            public ObservableCollection<Note> Notes
+            {
+                get { return notes; }
+                set { notes = value; }
+            }
 
             public NoteViewModel()
             {
@@ -49,7 +53,6 @@ namespace HandwritingConverter
 
                     db.Close();
                 }
-
             }
         }
 
@@ -142,15 +145,16 @@ namespace HandwritingConverter
 
         private void sortNotes(object sender, RoutedEventArgs e)
         {
-            var notesArray = new List<string>();
+            ObservableCollection<Note>  tempArray = new ObservableCollection<Note>(bubbleSort(ViewModel.Notes));
+            ViewModel.Notes.Clear();
 
-            for (int i = 0; i < ViewModel.Notes.Count; i++)
+            for (int i = 0; i < tempArray.Count; i++)
             {
-                notesArray.Add(ViewModel.Notes[i].Converted);
+                ViewModel.Notes.Add(tempArray[i]);
             }
         }
 
-        private static List<string> bubbleSort(List<string> array)
+        private static ObservableCollection<Note> bubbleSort(ObservableCollection<Note> array)
         {
             int counter = 0;
             bool swapped = true;
@@ -160,11 +164,11 @@ namespace HandwritingConverter
             {
                 while (counter < array.Count - 1)
                 {
-                    if (string.Compare(array[counter], array[counter + 1]) > 0)
+                    if (string.Compare(array[counter].Converted, array[counter + 1].Converted) > 0)
                     {
-                        var temp = array[counter];
-                        array[counter] = array[counter + 1];
-                        array[counter + 1] = temp;
+                        string temp = array[counter].Converted;
+                        array[counter].Converted = array[counter + 1].Converted;
+                        array[counter + 1].Converted = temp;
 
                         swaps++;
                     }
@@ -180,7 +184,6 @@ namespace HandwritingConverter
                     counter = 0;
                 }
             }
-
             return array;
         }
     }

@@ -24,6 +24,8 @@
                     <AppBarButton Icon="Delete" Label="Delete" Click="deleteNote"/>
                 </StackPanel>
 
+                <AppBarButton Icon="Sort" Label="Sort" Click="sortNotes"/>
+
                 <GridView x:Name="NotesGridView" ItemsSource="{x:Bind ViewModel.Notes}">
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="local:Note">
