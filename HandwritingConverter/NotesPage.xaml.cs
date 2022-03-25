@@ -140,26 +140,13 @@ namespace HandwritingConverter
             }
         }
 
-        private void searchNotes(object sender, RoutedEventArgs e)
+        private void sortNotes(object sender, RoutedEventArgs e)
         {
-
-            string noteToSearch = searchBox.Text;
             var notesArray = new List<string>();
 
             for (int i = 0; i < ViewModel.Notes.Count; i++)
             {
                 notesArray.Add(ViewModel.Notes[i].Converted);
-            }
-
-            var result = binarySearch(notesArray, noteToSearch);
-
-            if (result == "No result")
-            {
-                searchResult.Text = "No result";
-            }
-            else
-            {
-                searchResult.Text = "Found in notes";
             }
         }
 
@@ -195,41 +182,6 @@ namespace HandwritingConverter
             }
 
             return array;
-        }
-
-        private static string binarySearch(List<string> array, string searchTerm)
-        {
-            int lower = 0;
-            int upper = array.Count;
-            int mid = 0;
-            bool found = false;
-
-            while (lower >= upper && found == false)
-            {
-                mid = (lower + upper) / 2;
-
-                if (array[mid] == searchTerm)
-                {
-                    found = true;
-                }
-                else if (string.Compare(array[mid], searchTerm) > 0)
-                {
-                    upper = mid - 1;
-                }
-                else
-                {
-                    lower = mid + 1;
-                }
-            }
-
-            if (found)
-            {
-                return array[mid];
-            }
-            else
-            {
-                return "No result";
-            }
         }
     }
 }

@@ -24,14 +24,6 @@
                     <AppBarButton Icon="Delete" Label="Delete" Click="deleteNote"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal">
-                    <TextBox x:Name="searchBox" PlaceholderText="Search" Width="200" Margin="10" HorizontalAlignment="Left"/>
-                    <Button HorizontalAlignment="Left" Click="searchNotes">
-                        <FontIcon FontFamily="Segoe Fluent Icons,Segoe MDL2 Assets" Glyph="&#xE721;"/>
-                    </Button>
-                    <TextBlock x:Name="searchResult" Margin="10" VerticalAlignment="Center"/>
-                </StackPanel>
-
                 <GridView x:Name="NotesGridView" ItemsSource="{x:Bind ViewModel.Notes}">
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="local:Note">
