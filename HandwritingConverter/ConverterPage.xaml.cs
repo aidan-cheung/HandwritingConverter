@@ -104,8 +104,11 @@ namespace HandwritingConverter
                 Guid guid = Guid.NewGuid();
                 string result = recognitionResult.Text;
 
-                insertCommand.CommandText = $"INSERT INTO convertedText VALUES (@guid, null, @result);";
+                long unix = DateTimeOffset.Now.ToUnixTimeSeconds();
+
+                insertCommand.CommandText = $"INSERT INTO convertedText VALUES (@guid, @unix, @result);";
                 insertCommand.Parameters.AddWithValue("@guid", guid);
+                insertCommand.Parameters.AddWithValue("@unix", unix);
                 insertCommand.Parameters.AddWithValue("@result", result);
 
                 insertCommand.ExecuteReader();
