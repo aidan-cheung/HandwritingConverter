@@ -145,7 +145,7 @@ namespace HandwritingConverter
 
         private void sortNotes(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<Note>  tempArray = new ObservableCollection<Note>(bubbleSort(ViewModel.Notes));
+            ObservableCollection<Note> tempArray = new ObservableCollection<Note>(bubbleSort(ViewModel.Notes));
             ViewModel.Notes.Clear();
 
             for (int i = 0; i < tempArray.Count; i++)
@@ -160,7 +160,7 @@ namespace HandwritingConverter
             bool swapped = true;
             int swaps = 0;
 
-            while (swapped == true)
+            while (swapped)
             {
                 while (counter < array.Count - 1)
                 {
