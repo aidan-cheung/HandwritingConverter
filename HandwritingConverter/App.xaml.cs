@@ -29,8 +29,8 @@ namespace HandwritingConverter
 
                     String tableCommand = "CREATE TABLE IF NOT EXISTS convertedText (" +
                         "GUID VARCHAR(36) NOT NULL CHECK(length(GUID)==36)," +
-                        "Handwritten BLOB," +
-                        "Converted VARCHAR(255)," +
+                        "Timestamp INTEGER NOT NULL," +
+                        "Converted VARCHAR(255) NOT NULL," +
                         "PRIMARY KEY (GUID) );";
 
                     SqliteCommand createTable = new SqliteCommand(tableCommand, db);
@@ -38,6 +38,7 @@ namespace HandwritingConverter
                     createTable.ExecuteReader();
 
                     db.Close();
+                    
                 }
             }            
         }
