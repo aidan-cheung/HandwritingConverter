@@ -24,7 +24,14 @@
                     <AppBarButton Icon="Delete" Label="Delete" Click="deleteNote"/>
                 </StackPanel>
 
-                <AppBarButton Icon="Sort" Label="Sort" Click="sortNotes"/>
+                <DropDownButton Content="Sort">
+                    <DropDownButton.Flyout>
+                        <MenuFlyout Placement="Bottom">
+                            <MenuFlyoutItem Text="Alphabetically" Click="sortNotes"/>
+                            <MenuFlyoutItem Text="Date Added"/>
+                        </MenuFlyout>
+                    </DropDownButton.Flyout>
+                </DropDownButton>
 
                 <GridView x:Name="NotesGridView" ItemsSource="{x:Bind ViewModel.Notes}">
                     <GridView.ItemTemplate>
