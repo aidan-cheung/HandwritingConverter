@@ -24,7 +24,7 @@
                     <AppBarButton Icon="Delete" Label="Delete" Click="deleteNote"/>
                 </StackPanel>
 
-                <DropDownButton Content="Sort">
+                <DropDownButton Content="Sort" Margin="10">
                     <DropDownButton.Flyout>
                         <MenuFlyout Placement="Bottom">
                             <MenuFlyoutItem Text="Alphabetically" Click="sortNotes"/>
@@ -46,6 +46,5 @@
                 </GridView>
             </StackPanel>
         </StackPanel>
-        
     </Grid>
 </Page>
