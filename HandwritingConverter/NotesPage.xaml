@@ -20,6 +20,7 @@
                     <AppBarButton Icon="Character" Label="Narrate" Click="narrateNote"/>
                     <AppBarButton Icon="SaveLocal" Label="Export" Click="exportNote"/>
                     <AppBarButton x:Name="copyButton" Icon="Copy" Label="Copy" Click="copyNote"/>
+                    <AppBarButton Icon="List" Label="Details" Click="detailNote"/>
                     <AppBarSeparator/>
                     <AppBarButton Icon="Delete" Label="Delete" Click="deleteNote"/>
                 </StackPanel>
@@ -27,8 +28,8 @@
                 <DropDownButton Content="Sort" Margin="10">
                     <DropDownButton.Flyout>
                         <MenuFlyout Placement="Bottom">
-                            <MenuFlyoutItem Text="Alphabetically" Click="sortNotes"/>
-                            <MenuFlyoutItem Text="Date Added"/>
+                            <MenuFlyoutItem Text="Alphabetically" Click="sortNotesConverted"/>
+                            <MenuFlyoutItem Text="Date Added" Click="sortNotesTimestamp"/>
                         </MenuFlyout>
                     </DropDownButton.Flyout>
                 </DropDownButton>

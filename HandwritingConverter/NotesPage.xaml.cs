@@ -143,9 +143,38 @@ namespace HandwritingConverter
             }
         }
 
-        private void sortNotes(object sender, RoutedEventArgs e)
+        private async void detailNote(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<Note> tempArray = new ObservableCollection<Note>(bubbleSort(ViewModel.Notes));
+            if (NotesGridView.SelectedItem != null)
+            {
+                Note note = NotesGridView.SelectedItem as Note;
+
+                DateTimeOffset noteOffset = DateTimeOffset.FromUnixTimeSeconds(note.Timestamp);
+                DateTime noteDate = noteOffset.UtcDateTime;
+
+                ContentDialog dialog = new ContentDialog();
+                dialog.Title = "Note Details";
+                dialog.PrimaryButtonText = "Okay";
+                dialog.Content = noteDate;
+
+                await dialog.ShowAsync();
+            }
+        }
+
+        private void sortNotesConverted(object sender, RoutedEventArgs e)
+        {
+            ObservableCollection<Note> tempArray = new ObservableCollection<Note>(bubbleSortConverted(ViewModel.Notes));
+            ViewModel.Notes.Clear();
+
+            for (int i = 0; i < tempArray.Count; i++)
+            {
+                ViewModel.Notes.Add(tempArray[i]);
+            }
+        }
+        
+        private void sortNotesTimestamp(object sender, RoutedEventArgs e)
+        {
+            ObservableCollection<Note> tempArray = new ObservableCollection<Note>(bubbleSortTimestamp(ViewModel.Notes));
             ViewModel.Notes.Clear();
 
             for (int i = 0; i < tempArray.Count; i++)
@@ -154,7 +183,7 @@ namespace HandwritingConverter
             }
         }
 
-        private static ObservableCollection<Note> bubbleSort(ObservableCollection<Note> array)
+        private static ObservableCollection<Note> bubbleSortConverted(ObservableCollection<Note> array)
         {
             int counter = 0;
             bool swapped = true;
@@ -169,6 +198,39 @@ namespace HandwritingConverter
                         string temp = array[counter].Converted;
                         array[counter].Converted = array[counter + 1].Converted;
                         array[counter + 1].Converted = temp;
+
+                        swaps++;
+                    }
+                    counter++;
+                }
+                if (swaps == 0)
+                {
+                    swapped = false;
+                }
+                else
+                {
+                    swaps = 0;
+                    counter = 0;
+                }
+            }
+            return array;
+        }
+
+        private static ObservableCollection<Note> bubbleSortTimestamp(ObservableCollection<Note> array)
+        {
+            int counter = 0;
+            bool swapped = true;
+            int swaps = 0;
+
+            while (swapped)
+            {
+                while (counter < array.Count - 1)
+                {
+                    if (array[counter].Timestamp > array[counter + 1].Timestamp)
+                    {
+                        int temp = array[counter].Timestamp;
+                        array[counter].Timestamp = array[counter + 1].Timestamp;
+                        array[counter + 1].Timestamp = temp;
 
                         swaps++;
                     }
