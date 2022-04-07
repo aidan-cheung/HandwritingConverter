@@ -43,12 +43,12 @@ namespace HandwritingConverter
                 {
                     db.Open();
 
-                    SqliteCommand selectCommand = new SqliteCommand("SELECT guid,converted FROM convertedText", db);
+                    SqliteCommand selectCommand = new SqliteCommand("SELECT guid,timestamp,converted FROM convertedText", db);
                     SqliteDataReader query = selectCommand.ExecuteReader();
 
                     while (query.Read())
                     {
-                        Notes.Add(new Note() { Id = query.GetGuid(0), Converted = query.GetString(1) });
+                        Notes.Add(new Note() { Id = query.GetGuid(0), Timestamp = query.GetInt32(1), Converted = query.GetString(2) });
                     }
 
                     db.Close();
