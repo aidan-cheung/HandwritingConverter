@@ -7,7 +7,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Data.Sqlite;
 using Windows.Storage;
-using System.Diagnostics;
 
 namespace HandwritingConverter
 {

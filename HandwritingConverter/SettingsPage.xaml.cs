@@ -3,8 +3,6 @@ using Windows.ApplicationModel;
 using Windows.Storage;
 using System;
 using Windows.UI.Xaml;
-using System.IO;
-using Microsoft.Data.Sqlite;
 
 namespace HandwritingConverter
 {
