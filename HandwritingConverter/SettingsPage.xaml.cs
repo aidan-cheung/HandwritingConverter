@@ -18,7 +18,7 @@ namespace HandwritingConverter
         {
             this.InitializeComponent();
 
-            string appVersion = $"Handwriting Converter {Package.Current.Id.Version.Major}.{Package.Current.Id.Version.Minor}.{Package.Current.Id.Version.Build} Alpha";
+            string appVersion = $"Handwriting Converter {Package.Current.Id.Version.Major}.{Package.Current.Id.Version.Minor}.{Package.Current.Id.Version.Build} Beta";
 
             versiontext.Text = appVersion;
         }
