@@ -195,9 +195,9 @@ namespace HandwritingConverter
                 {
                     if (string.Compare(array[counter].Converted, array[counter + 1].Converted) > 0)
                     {
-                        string temp = array[counter].Converted;
-                        array[counter].Converted = array[counter + 1].Converted;
-                        array[counter + 1].Converted = temp;
+                        Note temp = array[counter];
+                        array[counter] = array[counter + 1];
+                        array[counter + 1] = temp;
 
                         swaps++;
                     }
@@ -228,9 +228,9 @@ namespace HandwritingConverter
                 {
                     if (array[counter].Timestamp > array[counter + 1].Timestamp)
                     {
-                        int temp = array[counter].Timestamp;
-                        array[counter].Timestamp = array[counter + 1].Timestamp;
-                        array[counter + 1].Timestamp = temp;
+                        Note temp = array[counter];
+                        array[counter] = array[counter + 1];
+                        array[counter + 1] = temp;
 
                         swaps++;
                     }
