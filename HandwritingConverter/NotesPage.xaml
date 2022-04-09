@@ -37,11 +37,11 @@
                 <GridView x:Name="NotesGridView" ItemsSource="{x:Bind ViewModel.Notes}">
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="local:Note">
-                            <ScrollViewer>
-                                <StackPanel Orientation="Vertical" Width="100px" Height="100px" CornerRadius="12" BorderThickness="1" BorderBrush="Gray">
+                            <StackPanel Orientation="Vertical" Width="100px" Height="100px" CornerRadius="6" BorderThickness="1" BorderBrush="Gray">
+                                <ScrollViewer Height="90px" Width="100px">
                                     <TextBlock Text="{x:Bind Converted}" Padding="10" TextWrapping="Wrap"/>
-                                </StackPanel>
-                            </ScrollViewer>
+                                </ScrollViewer>
+                            </StackPanel>
                         </DataTemplate>
                     </GridView.ItemTemplate>
                 </GridView>
