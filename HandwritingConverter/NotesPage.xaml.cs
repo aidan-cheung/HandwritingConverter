@@ -21,12 +21,7 @@ namespace HandwritingConverter
         }
         public class NoteViewModel
         {
-            private ObservableCollection<Note> notes = new ObservableCollection<Note>();
-            public ObservableCollection<Note> Notes
-            {
-                get { return notes; }
-                set { notes = value; }
-            }
+            public ObservableCollection<Note> Notes = new ObservableCollection<Note>();
 
             public NoteViewModel() // constructor
             {
@@ -55,7 +50,7 @@ namespace HandwritingConverter
                 Note note = NotesGridView.SelectedItem as Note;
                 ViewModel.Notes.Remove(note);
 
-                Guid guid = note.Id;
+                Guid guid = note.id;
 
                 string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
                 using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
@@ -89,7 +84,7 @@ namespace HandwritingConverter
             if (NotesGridView.SelectedItem != null)
             {
                 Note note = NotesGridView.SelectedItem as Note;
-                string textToCopy = note.Converted;
+                string textToCopy = note.converted;
                 DataPackage dataPackage = new DataPackage();
 
                 dataPackage.RequestedOperation = DataPackageOperation.Copy;
@@ -119,7 +114,7 @@ namespace HandwritingConverter
             if (NotesGridView.SelectedItem != null)
             {
                 Note note = NotesGridView.SelectedItem as Note;
-                string noteToSave = note.Converted;
+                string noteToSave = note.converted;
 
                 var filePicker = new Windows.Storage.Pickers.FileSavePicker();
                 filePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
@@ -152,7 +147,7 @@ namespace HandwritingConverter
             if (NotesGridView.SelectedItem != null)
             {
                 Note note = NotesGridView.SelectedItem as Note;
-                string noteToNarrate = note.Converted;
+                string noteToNarrate = note.converted;
 
                 MediaElement mediaElement = new MediaElement();
                 var synth = new Windows.Media.SpeechSynthesis.SpeechSynthesizer();
@@ -177,7 +172,7 @@ namespace HandwritingConverter
             {
                 Note note = NotesGridView.SelectedItem as Note;
 
-                DateTimeOffset noteOffset = DateTimeOffset.FromUnixTimeSeconds(note.Timestamp);
+                DateTimeOffset noteOffset = DateTimeOffset.FromUnixTimeSeconds(note.timestamp);
                 DateTime noteDate = noteOffset.UtcDateTime;
 
                 ContentDialog dialog = new ContentDialog();
@@ -230,7 +225,7 @@ namespace HandwritingConverter
             {
                 while (counter < array.Count - 1)
                 {
-                    if (string.Compare(array[counter].Converted, array[counter + 1].Converted) > 0)
+                    if (string.Compare(array[counter].converted, array[counter + 1].converted) > 0)
                     {
                         Note temp = array[counter];
                         array[counter] = array[counter + 1];
@@ -263,7 +258,7 @@ namespace HandwritingConverter
             {
                 while (counter < array.Count - 1)
                 {
-                    if (array[counter].Timestamp > array[counter + 1].Timestamp)
+                    if (array[counter].timestamp > array[counter + 1].timestamp)
                     {
                         Note temp = array[counter];
                         array[counter] = array[counter + 1];
