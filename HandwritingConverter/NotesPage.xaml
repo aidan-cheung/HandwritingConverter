@@ -17,19 +17,19 @@
 
             <StackPanel Margin="10">
                 <StackPanel Orientation="Horizontal">
-                    <AppBarButton Icon="Character" Label="Narrate" Click="narrateNote"/>
-                    <AppBarButton Icon="SaveLocal" Label="Export" Click="exportNote"/>
-                    <AppBarButton x:Name="copyButton" Icon="Copy" Label="Copy" Click="copyNote"/>
-                    <AppBarButton Icon="List" Label="Details" Click="detailNote"/>
+                    <AppBarButton Icon="Character" Label="Narrate" Click="NarrateNote"/>
+                    <AppBarButton Icon="SaveLocal" Label="Export" Click="ExportNote"/>
+                    <AppBarButton x:Name="CopyButton" Icon="Copy" Label="Copy" Click="CopyNote"/>
+                    <AppBarButton Icon="List" Label="Details" Click="DetailNote"/>
                     <AppBarSeparator/>
-                    <AppBarButton Icon="Delete" Label="Delete" Click="deleteNote"/>
+                    <AppBarButton Icon="Delete" Label="Delete" Click="DeleteNote"/>
                 </StackPanel>
 
                 <DropDownButton Content="Sort" Margin="10">
                     <DropDownButton.Flyout>
                         <MenuFlyout Placement="Bottom">
-                            <MenuFlyoutItem Text="Alphabetically" Click="sortNotesConverted"/>
-                            <MenuFlyoutItem Text="Date Added" Click="sortNotesTimestamp"/>
+                            <MenuFlyoutItem Text="Alphabetically" Click="SortNotesConverted"/>
+                            <MenuFlyoutItem Text="Date Added" Click="SortNotesTimestamp"/>
                         </MenuFlyout>
                     </DropDownButton.Flyout>
                 </DropDownButton>

@@ -17,10 +17,10 @@ namespace HandwritingConverter
         public NotesPage()
         {
             InitializeComponent();
-            grabNotes();
+            GrabNotes();
         }
 
-        private void grabNotes()
+        private void GrabNotes()
         {
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
@@ -39,7 +39,7 @@ namespace HandwritingConverter
             }
         }
 
-        private async void deleteNote(object sender, RoutedEventArgs e)
+        private async void DeleteNote(object sender, RoutedEventArgs e)
         {
             if (NotesGridView.SelectedItem != null)
             {
@@ -75,7 +75,7 @@ namespace HandwritingConverter
             }
         }
 
-        private async void copyNote(object sender, RoutedEventArgs e)
+        private async void CopyNote(object sender, RoutedEventArgs e)
         {
             if (NotesGridView.SelectedItem != null)
             {
@@ -88,11 +88,11 @@ namespace HandwritingConverter
 
                 Clipboard.SetContent(dataPackage);
 
-                copyButton.Icon = new SymbolIcon(Symbol.Accept);
-                copyButton.Label = "Copied!";
+                CopyButton.Icon = new SymbolIcon(Symbol.Accept);
+                CopyButton.Label = "Copied!";
                 await Task.Delay(1000);
-                copyButton.Icon = new SymbolIcon(Symbol.Copy);
-                copyButton.Label = "Copy";
+                CopyButton.Icon = new SymbolIcon(Symbol.Copy);
+                CopyButton.Label = "Copy";
             }
             else
             {
@@ -105,7 +105,7 @@ namespace HandwritingConverter
             }
         }
 
-        private async void exportNote(object sender, RoutedEventArgs e)
+        private async void ExportNote(object sender, RoutedEventArgs e)
         {
             if (NotesGridView.SelectedItem != null)
             {
@@ -138,7 +138,7 @@ namespace HandwritingConverter
             }
         }
 
-        private async void narrateNote(object sender, RoutedEventArgs e)
+        private async void NarrateNote(object sender, RoutedEventArgs e)
         {
             if (NotesGridView.SelectedItem != null)
             {
@@ -162,7 +162,7 @@ namespace HandwritingConverter
             }
         }
 
-        private async void detailNote(object sender, RoutedEventArgs e)
+        private async void DetailNote(object sender, RoutedEventArgs e)
         {
             if (NotesGridView.SelectedItem != null)
             {
@@ -189,9 +189,9 @@ namespace HandwritingConverter
             }
         }
 
-        private void sortNotesConverted(object sender, RoutedEventArgs e)
+        private void SortNotesConverted(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<Note> tempArray = new ObservableCollection<Note>(bubbleSortConverted(Notes));
+            ObservableCollection<Note> tempArray = new ObservableCollection<Note>(BubbleSortConverted(Notes));
             Notes.Clear();
 
             for (int i = 0; i < tempArray.Count; i++)
@@ -200,9 +200,9 @@ namespace HandwritingConverter
             }
         }
         
-        private void sortNotesTimestamp(object sender, RoutedEventArgs e)
+        private void SortNotesTimestamp(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<Note> tempArray = new ObservableCollection<Note>(bubbleSortTimestamp(Notes));
+            ObservableCollection<Note> tempArray = new ObservableCollection<Note>(BubbleSortTimestamp(Notes));
             Notes.Clear();
 
             for (int i = 0; i < tempArray.Count; i++)
@@ -211,7 +211,7 @@ namespace HandwritingConverter
             }
         }
 
-        private ObservableCollection<Note> bubbleSortConverted(ObservableCollection<Note> array)
+        private ObservableCollection<Note> BubbleSortConverted(ObservableCollection<Note> array)
         {
             int counter = 0;
             bool swapped = true;
@@ -244,7 +244,7 @@ namespace HandwritingConverter
             return array;
         }
 
-        private ObservableCollection<Note> bubbleSortTimestamp(ObservableCollection<Note> array)
+        private ObservableCollection<Note> BubbleSortTimestamp(ObservableCollection<Note> array)
         {
             int counter = 0;
             bool swapped = true;
