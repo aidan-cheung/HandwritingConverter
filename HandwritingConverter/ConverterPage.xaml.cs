@@ -10,89 +10,21 @@ using System.Threading.Tasks;
 
 namespace HandwritingConverter
 {
-    /*
-    The following code uses modified samples from the Microsoft UWP Documentation, 
-    these samples are taken from the following pages granted under the MIT license:
-
-    - https://docs.microsoft.com/en-us/windows/apps/design/input/ink-walkthrough
-
-    */
     public sealed partial class ConverterPage : Page
     {
         public ConverterPage()
         {
             this.InitializeComponent();
 
-            // Set supported inking device types.
             inkCanvas.InkPresenter.InputDeviceTypes = Windows.UI.Core.CoreInputDeviceTypes.Mouse | Windows.UI.Core.CoreInputDeviceTypes.Pen;
 
-            // Set initial ink stroke attributes.
             InkDrawingAttributes drawingAttributes = new InkDrawingAttributes();
             drawingAttributes.Color = Windows.UI.Colors.Black;
             drawingAttributes.IgnorePressure = false;
             drawingAttributes.FitToCurve = true;
             inkCanvas.InkPresenter.UpdateDefaultDrawingAttributes(drawingAttributes);
 
-            // Listen for button click to initiate recognition.
-            convert.Click += Recognize_Click; // change to reference convert button
-        }
-
-        private async void Recognize_Click(object sender, RoutedEventArgs e)
-        {
-            // Get all strokes on the InkCanvas.
-            IReadOnlyList<InkStroke> currentStrokes = inkCanvas.InkPresenter.StrokeContainer.GetStrokes();
-
-            // Ensure an ink stroke is present.
-            if (currentStrokes.Count > 0)
-            {
-                // Create a manager for the InkRecognizer object 
-                // used in handwriting recognition.
-                InkRecognizerContainer inkRecognizerContainer = new InkRecognizerContainer();
-
-                // inkRecognizerContainer is null if a recognition engine is not available.
-                if (!(inkRecognizerContainer == null))
-                {
-                    // Recognize all ink strokes on the ink canvas.
-                    IReadOnlyList<InkRecognitionResult> recognitionResults = await inkRecognizerContainer.RecognizeAsync(inkCanvas.InkPresenter.StrokeContainer, InkRecognitionTarget.All);
-                    // Process and display the recognition results.
-                    if (recognitionResults.Count > 0)
-                    {
-                        string str = "";
-                        foreach (var result in recognitionResults)
-                        {
-                            IReadOnlyList<string> candidate = result.GetTextCandidates();
-                            str += candidate[0] + " ";
-                        }
-                        // Display the recognition candidates.
-                        recognitionResult.Text = str;
-                        // Clear the ink canvas once recognition is complete.
-                        inkCanvas.InkPresenter.StrokeContainer.Clear();
-                    }
-                    else
-                    {
-                        ContentDialog dialog = new ContentDialog();
-                        dialog.Title = "Error";
-                        dialog.PrimaryButtonText = "Okay";
-                        dialog.Content = "Couldn't recognise text";
-
-                        await dialog.ShowAsync();
-                    }
-                }
-                else
-                {
-                    Windows.UI.Popups.MessageDialog messageDialog = new Windows.UI.Popups.MessageDialog("You must install handwriting recognition engine.");
-                    await messageDialog.ShowAsync();
-                }
-            }
-            else
-            {
-                ContentDialog dialog = new ContentDialog();
-                dialog.Title = "Error";
-                dialog.PrimaryButtonText = "Okay";
-                dialog.Content = "No text to convert";
-
-                await dialog.ShowAsync();
-            }
+            convert.Click += Recognize_Click;
         }
 
         private async void AddData(object sender, RoutedEventArgs e)
@@ -132,6 +64,62 @@ namespace HandwritingConverter
                 dialog.Title = "Error";
                 dialog.PrimaryButtonText = "Okay";
                 dialog.Content = "No text to save";
+
+                await dialog.ShowAsync();
+            }
+        }
+
+        /*
+        The following code uses modified samples from the Microsoft UWP Documentation, 
+        these samples are taken from the following pages granted under the MIT license:
+
+        - https://docs.microsoft.com/en-us/windows/apps/design/input/ink-walkthrough
+        */
+
+        private async void Recognize_Click(object sender, RoutedEventArgs e)
+        {
+            IReadOnlyList<InkStroke> currentStrokes = inkCanvas.InkPresenter.StrokeContainer.GetStrokes();
+
+            if (currentStrokes.Count > 0)
+            {
+                InkRecognizerContainer inkRecognizerContainer = new InkRecognizerContainer();
+
+                if (!(inkRecognizerContainer == null))
+                {
+                    IReadOnlyList<InkRecognitionResult> recognitionResults = await inkRecognizerContainer.RecognizeAsync(inkCanvas.InkPresenter.StrokeContainer, InkRecognitionTarget.All);
+                    if (recognitionResults.Count > 0)
+                    {
+                        string str = "";
+                        foreach (var result in recognitionResults)
+                        {
+                            IReadOnlyList<string> candidate = result.GetTextCandidates();
+                            str += candidate[0] + " ";
+                        }
+                        recognitionResult.Text = str;
+                        inkCanvas.InkPresenter.StrokeContainer.Clear();
+                    }
+                    else
+                    {
+                        ContentDialog dialog = new ContentDialog();
+                        dialog.Title = "Error";
+                        dialog.PrimaryButtonText = "Okay";
+                        dialog.Content = "Couldn't recognise text";
+
+                        await dialog.ShowAsync();
+                    }
+                }
+                else
+                {
+                    Windows.UI.Popups.MessageDialog messageDialog = new Windows.UI.Popups.MessageDialog("You must install handwriting recognition engine.");
+                    await messageDialog.ShowAsync();
+                }
+            }
+            else
+            {
+                ContentDialog dialog = new ContentDialog();
+                dialog.Title = "Error";
+                dialog.PrimaryButtonText = "Okay";
+                dialog.Content = "No text to convert";
 
                 await dialog.ShowAsync();
             }
