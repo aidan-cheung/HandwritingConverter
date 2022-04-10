@@ -13,33 +13,29 @@ namespace HandwritingConverter
 {
     public sealed partial class NotesPage : Page
     {
-        public NoteViewModel ViewModel { get; set; }
+        public ObservableCollection<Note> Notes = new ObservableCollection<Note>();
         public NotesPage()
         {
-            this.InitializeComponent();
-            this.ViewModel = new NoteViewModel(); // create an instance of the NoteViewModel class
+            InitializeComponent();
+            grabNotes();
         }
-        public class NoteViewModel
+
+        private void grabNotes()
         {
-            public ObservableCollection<Note> Notes = new ObservableCollection<Note>();
-
-            public NoteViewModel() // constructor
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
+            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
             {
-                string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
-                using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+                db.Open();
+
+                SqliteCommand selectCommand = new SqliteCommand("SELECT guid,timestamp,converted FROM convertedText", db);
+                SqliteDataReader query = selectCommand.ExecuteReader();
+
+                while (query.Read())
                 {
-                    db.Open();
-
-                    SqliteCommand selectCommand = new SqliteCommand("SELECT guid,timestamp,converted FROM convertedText", db);
-                    SqliteDataReader query = selectCommand.ExecuteReader();
-
-                    while (query.Read())
-                    {
-                        Notes.Add(new Note(query.GetGuid(0), query.GetInt32(1), query.GetString(2)));
-                    }
-
-                    db.Close();
+                    Notes.Add(new Note(query.GetGuid(0), query.GetInt32(1), query.GetString(2)));
                 }
+
+                db.Close();
             }
         }
 
@@ -48,7 +44,7 @@ namespace HandwritingConverter
             if (NotesGridView.SelectedItem != null)
             {
                 Note note = NotesGridView.SelectedItem as Note;
-                ViewModel.Notes.Remove(note);
+                Notes.Remove(note);
 
                 Guid guid = note.id;
 
@@ -195,27 +191,27 @@ namespace HandwritingConverter
 
         private void sortNotesConverted(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<Note> tempArray = new ObservableCollection<Note>(bubbleSortConverted(ViewModel.Notes));
-            ViewModel.Notes.Clear();
+            ObservableCollection<Note> tempArray = new ObservableCollection<Note>(bubbleSortConverted(Notes));
+            Notes.Clear();
 
             for (int i = 0; i < tempArray.Count; i++)
             {
-                ViewModel.Notes.Add(tempArray[i]);
+                Notes.Add(tempArray[i]);
             }
         }
         
         private void sortNotesTimestamp(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<Note> tempArray = new ObservableCollection<Note>(bubbleSortTimestamp(ViewModel.Notes));
-            ViewModel.Notes.Clear();
+            ObservableCollection<Note> tempArray = new ObservableCollection<Note>(bubbleSortTimestamp(Notes));
+            Notes.Clear();
 
             for (int i = 0; i < tempArray.Count; i++)
             {
-                ViewModel.Notes.Add(tempArray[i]);
+                Notes.Add(tempArray[i]);
             }
         }
 
-        private static ObservableCollection<Note> bubbleSortConverted(ObservableCollection<Note> array)
+        private ObservableCollection<Note> bubbleSortConverted(ObservableCollection<Note> array)
         {
             int counter = 0;
             bool swapped = true;
@@ -248,7 +244,7 @@ namespace HandwritingConverter
             return array;
         }
 
-        private static ObservableCollection<Note> bubbleSortTimestamp(ObservableCollection<Note> array)
+        private ObservableCollection<Note> bubbleSortTimestamp(ObservableCollection<Note> array)
         {
             int counter = 0;
             bool swapped = true;
