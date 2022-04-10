@@ -24,9 +24,7 @@ namespace HandwritingConverter
             this.InitializeComponent();
 
             // Set supported inking device types.
-            inkCanvas.InkPresenter.InputDeviceTypes =
-                Windows.UI.Core.CoreInputDeviceTypes.Mouse |
-                Windows.UI.Core.CoreInputDeviceTypes.Pen;
+            inkCanvas.InkPresenter.InputDeviceTypes = Windows.UI.Core.CoreInputDeviceTypes.Mouse | Windows.UI.Core.CoreInputDeviceTypes.Pen;
 
             // Set initial ink stroke attributes.
             InkDrawingAttributes drawingAttributes = new InkDrawingAttributes();
@@ -49,17 +47,13 @@ namespace HandwritingConverter
             {
                 // Create a manager for the InkRecognizer object 
                 // used in handwriting recognition.
-                InkRecognizerContainer inkRecognizerContainer =
-                    new InkRecognizerContainer();
+                InkRecognizerContainer inkRecognizerContainer = new InkRecognizerContainer();
 
                 // inkRecognizerContainer is null if a recognition engine is not available.
                 if (!(inkRecognizerContainer == null))
                 {
                     // Recognize all ink strokes on the ink canvas.
-                    IReadOnlyList<InkRecognitionResult> recognitionResults =
-                        await inkRecognizerContainer.RecognizeAsync(
-                            inkCanvas.InkPresenter.StrokeContainer,
-                            InkRecognitionTarget.All);
+                    IReadOnlyList<InkRecognitionResult> recognitionResults = await inkRecognizerContainer.RecognizeAsync(inkCanvas.InkPresenter.StrokeContainer, InkRecognitionTarget.All);
                     // Process and display the recognition results.
                     if (recognitionResults.Count > 0)
                     {
@@ -76,7 +70,12 @@ namespace HandwritingConverter
                     }
                     else
                     {
-                        recognitionResult.Text = "No recognition results.";
+                        ContentDialog dialog = new ContentDialog();
+                        dialog.Title = "Error";
+                        dialog.PrimaryButtonText = "Okay";
+                        dialog.Content = "Couldn't recognise text";
+
+                        await dialog.ShowAsync();
                     }
                 }
                 else
@@ -87,39 +86,55 @@ namespace HandwritingConverter
             }
             else
             {
-                recognitionResult.Text = "No ink strokes to recognize.";
+                ContentDialog dialog = new ContentDialog();
+                dialog.Title = "Error";
+                dialog.PrimaryButtonText = "Okay";
+                dialog.Content = "No text to convert";
+
+                await dialog.ShowAsync();
             }
         }
 
         private async void AddData(object sender, RoutedEventArgs e)
         {
-            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
-            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+            if (recognitionResult.Text != "")
             {
-                db.Open();
+                string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
+                using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+                {
+                    db.Open();
 
-                SqliteCommand insertCommand = new SqliteCommand();
-                insertCommand.Connection = db;
+                    SqliteCommand insertCommand = new SqliteCommand();
+                    insertCommand.Connection = db;
 
-                Guid guid = Guid.NewGuid();
-                string result = recognitionResult.Text;
+                    Guid guid = Guid.NewGuid();
+                    string result = recognitionResult.Text;
 
-                long unix = DateTimeOffset.Now.ToUnixTimeSeconds();
+                    long unix = DateTimeOffset.Now.ToUnixTimeSeconds();
 
-                insertCommand.CommandText = $"INSERT INTO convertedText VALUES (@guid, @unix, @result);";
-                insertCommand.Parameters.AddWithValue("@guid", guid);
-                insertCommand.Parameters.AddWithValue("@unix", unix);
-                insertCommand.Parameters.AddWithValue("@result", result);
+                    insertCommand.CommandText = $"INSERT INTO convertedText VALUES (@guid, @unix, @result);";
+                    insertCommand.Parameters.AddWithValue("@guid", guid);
+                    insertCommand.Parameters.AddWithValue("@unix", unix);
+                    insertCommand.Parameters.AddWithValue("@result", result);
 
-                insertCommand.ExecuteReader();
+                    insertCommand.ExecuteReader();
 
-                db.Close();
+                    db.Close();
+                }
 
+                savedFeedback.Glyph = "\uE73E";
+                await Task.Delay(1000);
+                savedFeedback.Glyph = "\uE74E";
             }
+            else
+            {
+                ContentDialog dialog = new ContentDialog();
+                dialog.Title = "Error";
+                dialog.PrimaryButtonText = "Okay";
+                dialog.Content = "No text to save";
 
-            savedFeedback.Glyph = "\uE73E";
-            await Task.Delay(1000);
-            savedFeedback.Glyph = "\uE74E";
+                await dialog.ShowAsync();
+            }
         }
     }
 }
