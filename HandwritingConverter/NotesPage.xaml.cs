@@ -11,21 +11,14 @@ using System.Threading.Tasks;
 
 namespace HandwritingConverter
 {
-    /*
-    The following code uses modified samples from the Microsoft UWP Documentation, 
-    these samples are taken from the following pages granted under the MIT license:
-
-    - https://docs.microsoft.com/en-us/windows/apps/design/controls/navigationview
-    */
     public sealed partial class NotesPage : Page
     {
         public NoteViewModel ViewModel { get; set; }
         public NotesPage()
         {
             this.InitializeComponent();
-            this.ViewModel = new NoteViewModel();
+            this.ViewModel = new NoteViewModel(); // create an instance of the NoteViewModel class
         }
-
         public class NoteViewModel
         {
             private ObservableCollection<Note> notes = new ObservableCollection<Note>();
@@ -35,7 +28,7 @@ namespace HandwritingConverter
                 set { notes = value; }
             }
 
-            public NoteViewModel()
+            public NoteViewModel() // constructor
             {
                 string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
                 using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
@@ -47,7 +40,7 @@ namespace HandwritingConverter
 
                     while (query.Read())
                     {
-                        Notes.Add(new Note() { Id = query.GetGuid(0), Timestamp = query.GetInt32(1), Converted = query.GetString(2) });
+                        Notes.Add(new Note(query.GetGuid(0), query.GetInt32(1), query.GetString(2)));
                     }
 
                     db.Close();

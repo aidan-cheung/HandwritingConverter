@@ -8,8 +8,15 @@ namespace HandwritingConverter
 {
     public class Note
     {
-        public Guid Id { get; set; }
-        public int Timestamp { get; set; }
-        public string Converted { get; set; }
+        public Guid Id;
+        public int Timestamp;
+        public string Converted;
+
+        public Note(Guid id, int timestamp, string converted)
+        {
+            Id = id;
+            Timestamp = timestamp;
+            Converted = converted;
+        }
     }
 }
