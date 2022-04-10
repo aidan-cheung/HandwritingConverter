@@ -55,7 +55,7 @@ namespace HandwritingConverter
             }
         }
 
-        private void deleteNote(object sender, RoutedEventArgs e)
+        private async void deleteNote(object sender, RoutedEventArgs e)
         {
             if (NotesGridView.SelectedItem != null)
             {
@@ -80,6 +80,15 @@ namespace HandwritingConverter
                     db.Close();
                 }
             }
+            else
+            {
+                ContentDialog dialog = new ContentDialog();
+                dialog.Title = "Error";
+                dialog.PrimaryButtonText = "Okay";
+                dialog.Content = "No note was selected.";
+
+                await dialog.ShowAsync();
+            }
         }
 
         private async void copyNote(object sender, RoutedEventArgs e)
@@ -100,6 +109,15 @@ namespace HandwritingConverter
                 await Task.Delay(1000);
                 copyButton.Icon = new SymbolIcon(Symbol.Copy);
                 copyButton.Label = "Copy";
+            }
+            else
+            {
+                ContentDialog dialog = new ContentDialog();
+                dialog.Title = "Error";
+                dialog.PrimaryButtonText = "Okay";
+                dialog.Content = "No note was selected.";
+
+                await dialog.ShowAsync();
             }
         }
 
@@ -125,6 +143,15 @@ namespace HandwritingConverter
                     Windows.Storage.Provider.FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
                 }
             }
+            else
+            {
+                ContentDialog dialog = new ContentDialog();
+                dialog.Title = "Error";
+                dialog.PrimaryButtonText = "Okay";
+                dialog.Content = "No note was selected.";
+
+                await dialog.ShowAsync();
+            }
         }
 
         private async void narrateNote(object sender, RoutedEventArgs e)
@@ -139,6 +166,15 @@ namespace HandwritingConverter
                 Windows.Media.SpeechSynthesis.SpeechSynthesisStream stream = await synth.SynthesizeTextToStreamAsync(noteToNarrate);
                 mediaElement.SetSource(stream, stream.ContentType);
                 mediaElement.Play();
+            }
+            else
+            {
+                ContentDialog dialog = new ContentDialog();
+                dialog.Title = "Error";
+                dialog.PrimaryButtonText = "Okay";
+                dialog.Content = "No note was selected.";
+
+                await dialog.ShowAsync();
             }
         }
 
@@ -155,6 +191,15 @@ namespace HandwritingConverter
                 dialog.Title = "Note Details";
                 dialog.PrimaryButtonText = "Okay";
                 dialog.Content = noteDate;
+
+                await dialog.ShowAsync();
+            }
+            else
+            {
+                ContentDialog dialog = new ContentDialog();
+                dialog.Title = "Error";
+                dialog.PrimaryButtonText = "Okay";
+                dialog.Content = "No note was selected.";
 
                 await dialog.ShowAsync();
             }
