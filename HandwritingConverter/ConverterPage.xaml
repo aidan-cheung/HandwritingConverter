@@ -25,22 +25,51 @@
             Use a pen or mouse to write in the box on the left and click arrow in the middle to convert it to text. Make changes 
             as needed using the box on the right, then click the save button to save it to notes page.</TextBlock>
 
-        <Grid Background="White" BorderBrush="Gray" BorderThickness="1" CornerRadius="12" Margin="80,80,80,80" Grid.Row="1" Grid.RowSpan="2">
+        <Grid Background="White"
+              BorderBrush="Gray"
+              BorderThickness="1"
+              CornerRadius="12"
+              Margin="80,80,80,80"
+              Grid.Row="1" Grid.RowSpan="2">
             <InkCanvas x:Name="inkCanvas"/>
         </Grid>
 
-        <InkToolbar x:Name="inkToolbar" Grid.Row="2" Margin="90,0,0,45" VerticalAlignment="Bottom" InitialControls="None" TargetInkCanvas="{x:Bind inkCanvas}">
+        <InkToolbar x:Name="inkToolbar"
+                    Grid.Row="2"
+                    Margin="90,0,0,45"
+                    VerticalAlignment="Bottom"
+                    InitialControls="None"
+                    TargetInkCanvas="{x:Bind inkCanvas}">
             <InkToolbarBallpointPenButton/>
             <InkToolbarEraserButton/>
         </InkToolbar>
 
-        <TextBox x:Name="recognitionResult" Foreground="Black" TextWrapping="Wrap" RequestedTheme="Light" Padding="10" Grid.Column="1"  Background="White" BorderBrush="Gray" BorderThickness="1" CornerRadius="12" Margin="80" Grid.Row="1" Grid.RowSpan="2"/>
+        <TextBox x:Name="recognitionResult"
+                 Foreground="Black"
+                 TextWrapping="Wrap"
+                 RequestedTheme="Light"
+                 Padding="10"
+                 Background="White"
+                 BorderBrush="Gray" BorderThickness="1"
+                 CornerRadius="12"
+                 Margin="80"
+                 Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"/>
 
-        <Button Grid.Row="2" Grid.Column="1" Margin="90,0,0,45" Click="AddData" VerticalAlignment="Bottom" ToolTipService.ToolTip="Save Text to Notes">
-            <FontIcon x:Name="savedFeedback" FontFamily="Segoe Fluent Icons,Segoe MDL2 Assets" Glyph="&#xE74E;"/>
+        <Button Grid.Row="2" Grid.Column="1"
+                Margin="90,0,0,45"
+                Click="AddData"
+                VerticalAlignment="Bottom"
+                ToolTipService.ToolTip="Save Text to Notes">
+            <FontIcon x:Name="savedFeedback"
+                      FontFamily="Segoe Fluent Icons,Segoe MDL2 Assets"
+                      Glyph="&#xE74E;"/>
         </Button>
 
-        <Button x:Name="convert" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTipService.ToolTip="Convert to Text">
+        <Button x:Name="convert"
+                HorizontalAlignment="Center" VerticalAlignment="Center"
+                Grid.ColumnSpan="2"
+                Grid.RowSpan="2" Grid.Row="1"
+                ToolTipService.ToolTip="Convert to Text">
             <FontIcon FontFamily="Segoe Fluent Icons,Segoe MDL2 Assets" Glyph="&#xE974;"/>
         </Button>
     </Grid>
