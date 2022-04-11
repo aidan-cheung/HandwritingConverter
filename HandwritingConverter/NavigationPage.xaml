@@ -8,34 +8,40 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
+    <!-- 
+        The following code uses modified samples from the Microsoft UWP Documentation
+        and thus should not be treated as my own code. The samples are taken from the 
+        following pages granted under the MIT license:
+
+        - https://docs.microsoft.com/en-gb/windows/apps/design/controls/navigationview
+        - https://docs.microsoft.com/en-gb/windows/apps/develop/title-bar
+
+        Link to License: https://github.com/MicrosoftDocs/windows-uwp/blob/docs/LICENSE-CODE
+    -->
     <Grid>
-        <Border x:Name="AppTitleBar"
-            IsHitTestVisible="True"
-            VerticalAlignment="Top"
-            Height="32">
-            <StackPanel Orientation="Horizontal">
-                <Image x:Name="AppFontIcon"
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Center"
-                Source="Assets/Square44x44Logo.png" 
-                Width="16" 
-                Height="16"/>
-                <TextBlock x:Name="AppTitle"
-                Text="Handwriting Converter"
-                VerticalAlignment="Center"
-                Margin="12,0,0,0"
-                Style="{StaticResource CaptionTextBlockStyle}" />
-                <FontIcon FontFamily="Segoe Fluent Icons,Segoe MDL2 Assets" Glyph="&#xEA24;" FontSize="10" FontWeight="Normal"/>
-            </StackPanel>
-        </Border>
-        <muxc:NavigationView x:Name="NavView"          
-        DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
-        PaneDisplayMode="Top"
-        Loaded="NavView_Loaded"
-        ItemInvoked="NavView_ItemInvoked"
-        BackRequested="NavView_BackRequested"
-        IsSettingsVisible="True"
-        IsBackButtonVisible="Visible">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="AppTitleBar">
+            <Image Source="Assets/Square44x44Logo.png"
+                    HorizontalAlignment="Left" 
+                    Width="16" Height="16" 
+                    Margin="8,0"/>
+            <TextBlock x:Name="AppTitle" Text="Handwriting Converter"
+                    TextWrapping="NoWrap"
+                    Style="{StaticResource CaptionTextBlockStyle}" 
+                    VerticalAlignment="Center"
+                    Margin="28,0,0,0"/>
+        </Grid>
+        <muxc:NavigationView x:Name="NavView" Grid.Row="1"
+                DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
+                PaneDisplayMode="Top"
+                Loaded="NavView_Loaded"
+                ItemInvoked="NavView_ItemInvoked"
+                BackRequested="NavView_BackRequested"
+                IsSettingsVisible="True"
+                IsBackButtonVisible="Visible">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem Tag="converter" Content="Converter"/>
                 <muxc:NavigationViewItem Tag="notes"  Content="Notes"/>

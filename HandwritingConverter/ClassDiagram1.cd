@@ -19,7 +19,7 @@
   <Class Name="HandwritingConverter.NavigationPage" BaseTypeListCollapsed="true">
     <Position X="5.25" Y="0.75" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AAAQkAAAgGAAAgAAABAAAAQAAAAAJAAAgAQAAAABBAA=</HashCode>
+      <HashCode>AAAQkAAAgGAAAgAAABAAAAQAAAAAJAAAgAQAAAAABAA=</HashCode>
       <FileName>NavigationPage.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -30,7 +30,7 @@
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAkIAAEEAAAAAAAAAAAAAAAkAAAAAAAAAABBAAAABA=</HashCode>
+      <HashCode>AAAgAAAABCAAEAAQAAAAAAAEAAAAAAEAAAAAAAEAgAA=</HashCode>
       <FileName>NotesPage.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
