@@ -37,8 +37,7 @@
                 <GridView x:Name="NotesGridView" ItemsSource="{x:Bind Notes}">
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="local:Note">
-                            <StackPanel Orientation="Vertical"
-                                        Width="100px" Height="100px"
+                            <StackPanel Width="100px" Height="100px"
                                         CornerRadius="6"
                                         BorderThickness="1" BorderBrush="Gray">
                                 <ScrollViewer Height="90px" Width="100px">
