@@ -23,25 +23,28 @@
             <RowDefinition Height="32"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
         <Grid x:Name="AppTitleBar">
             <Image Source="Assets/Square44x44Logo.png"
-                    HorizontalAlignment="Left" 
-                    Width="16" Height="16" 
-                    Margin="8,0,0,0"/>
+                   HorizontalAlignment="Left" 
+                   Width="16" Height="16" 
+                   Margin="8,0,0,0"/>
+            
             <TextBlock x:Name="AppTitle" Text="Handwriting Converter"
-                    TextWrapping="NoWrap"
-                    Style="{StaticResource CaptionTextBlockStyle}" 
-                    VerticalAlignment="Center"
-                    Margin="28,0,0,0"/>
+                       TextWrapping="NoWrap"
+                       Style="{StaticResource CaptionTextBlockStyle}" 
+                       VerticalAlignment="Center"
+                       Margin="28,0,0,0"/>
         </Grid>
         <muxc:NavigationView x:Name="NavView" Grid.Row="1"
-                DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
-                PaneDisplayMode="Top"
-                Loaded="NavView_Loaded"
-                ItemInvoked="NavView_ItemInvoked"
-                BackRequested="NavView_BackRequested"
-                IsSettingsVisible="True"
-                IsBackButtonVisible="Visible">
+                             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
+                             PaneDisplayMode="Top"
+                             Loaded="NavView_Loaded"
+                             ItemInvoked="NavView_ItemInvoked"
+                             BackRequested="NavView_BackRequested"
+                             IsSettingsVisible="True"
+                             IsBackButtonVisible="Visible">
+            
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem Tag="converter" Content="Converter"/>
                 <muxc:NavigationViewItem Tag="notes"  Content="Notes"/>

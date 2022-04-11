@@ -16,11 +16,13 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
         <TextBlock Grid.ColumnSpan="2"
                    Padding="30,30,30,30"
                    TextWrapping="Wrap">
