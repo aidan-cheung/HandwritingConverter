@@ -23,7 +23,7 @@ namespace HandwritingConverter
             versiontext.Text = appVersion;
         }
 
-        private async void openDb(object sender, RoutedEventArgs e)
+        private async void OpenDb(object sender, RoutedEventArgs e)
         {
             StorageFolder db_folder = ApplicationData.Current.LocalFolder;
             await Windows.System.Launcher.LaunchFolderAsync(db_folder);

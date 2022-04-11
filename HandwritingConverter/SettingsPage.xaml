@@ -14,9 +14,8 @@
                        Margin="0,12,0,0"
                        Text="Storage"/>
             
-            <Button x:Name="dbLoc"
-                    Content="Open Database Location"
-                    Click="openDb"
+            <Button Content="Open Database Location"
+                    Click="OpenDb"
                     Margin="0,12,0,0"/>
 
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
