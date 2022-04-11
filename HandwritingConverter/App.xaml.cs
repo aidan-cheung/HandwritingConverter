@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.IO;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Microsoft.Data.Sqlite;
-using Windows.Storage;
 
 namespace HandwritingConverter
 {
