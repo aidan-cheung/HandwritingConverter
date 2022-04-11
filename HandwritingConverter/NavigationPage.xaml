@@ -12,7 +12,6 @@
         <Border x:Name="AppTitleBar"
             IsHitTestVisible="True"
             VerticalAlignment="Top"
-            Background="Transparent"
             Height="32">
             <StackPanel Orientation="Horizontal">
                 <Image x:Name="AppFontIcon"
