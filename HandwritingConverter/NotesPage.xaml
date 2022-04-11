@@ -8,9 +8,6 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
-    <Page.Resources>
-        <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
-    </Page.Resources>
     <Grid>
         <StackPanel Margin="30,16,0,0">
             <TextBlock TextWrapping="Wrap" Margin="10">Here is where you can find all of your saved text. Select a note, then click on the delete button to remove a note.</TextBlock>
