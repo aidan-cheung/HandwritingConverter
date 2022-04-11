@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Windows.ApplicationModel.Core;
+using Windows.System;
+using Windows.UI;
+using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Windows.UI.ViewManagement;
-using Windows.UI;
-using Windows.ApplicationModel.Core;
 using muxc = Microsoft.UI.Xaml.Controls;
-using Windows.UI.Core;
-using Windows.System;
-using Windows.UI.Xaml.Controls;
 
 namespace HandwritingConverter
 {
@@ -125,11 +125,6 @@ namespace HandwritingConverter
         }
 
         private double NavViewCompactModeThresholdWidth { get { return NavView.CompactModeThresholdWidth; } }
-
-        private void ContentFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
-        {
-            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
-        }
 
         // List of ValueTuple holding the Navigation Tag and the relative Navigation Page
         private readonly List<(string Tag, Type Page)> _pages = new List<(string Tag, Type Page)>
