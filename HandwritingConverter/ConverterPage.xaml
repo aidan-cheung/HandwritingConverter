@@ -34,7 +34,7 @@
               BorderBrush="Gray"
               BorderThickness="1"
               CornerRadius="12"
-              Margin="80,80,80,80"
+              Margin="80"
               Grid.Row="1" Grid.RowSpan="2">
             <InkCanvas x:Name="inkCanvas"/>
         </Grid>
