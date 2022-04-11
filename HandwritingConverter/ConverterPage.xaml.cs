@@ -12,21 +12,6 @@ namespace HandwritingConverter
 {
     public sealed partial class ConverterPage : Page
     {
-        public ConverterPage()
-        {
-            this.InitializeComponent();
-
-            inkCanvas.InkPresenter.InputDeviceTypes = Windows.UI.Core.CoreInputDeviceTypes.Mouse | Windows.UI.Core.CoreInputDeviceTypes.Pen;
-
-            InkDrawingAttributes drawingAttributes = new InkDrawingAttributes();
-            drawingAttributes.Color = Windows.UI.Colors.Black;
-            drawingAttributes.IgnorePressure = false;
-            drawingAttributes.FitToCurve = true;
-            inkCanvas.InkPresenter.UpdateDefaultDrawingAttributes(drawingAttributes);
-
-            convert.Click += Recognize_Click;
-        }
-
         private async void AddData(object sender, RoutedEventArgs e)
         {
             if (recognitionResult.Text != "")
@@ -75,6 +60,21 @@ namespace HandwritingConverter
 
         - https://docs.microsoft.com/en-us/windows/apps/design/input/ink-walkthrough
         */
+
+        public ConverterPage()
+        {
+            this.InitializeComponent();
+
+            inkCanvas.InkPresenter.InputDeviceTypes = Windows.UI.Core.CoreInputDeviceTypes.Mouse | Windows.UI.Core.CoreInputDeviceTypes.Pen;
+
+            InkDrawingAttributes drawingAttributes = new InkDrawingAttributes();
+            drawingAttributes.Color = Windows.UI.Colors.Black;
+            drawingAttributes.IgnorePressure = false;
+            drawingAttributes.FitToCurve = true;
+            inkCanvas.InkPresenter.UpdateDefaultDrawingAttributes(drawingAttributes);
+
+            convert.Click += Recognize_Click;
+        }
 
         private async void Recognize_Click(object sender, RoutedEventArgs e)
         {
