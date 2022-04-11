@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.ApplicationModel.DataTransfer;
-using System.Threading.Tasks;
 
 namespace HandwritingConverter
 {
@@ -228,7 +228,7 @@ namespace HandwritingConverter
                 Notes.Add(TempArray[i]);
             }
         }
-        
+
         private void SortNotesTimestamp(object sender, RoutedEventArgs e)
         {
             ObservableCollection<Note> TempArray = new ObservableCollection<Note>(Notes);
