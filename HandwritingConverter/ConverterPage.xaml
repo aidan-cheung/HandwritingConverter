@@ -13,13 +13,13 @@
     </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Grid.ColumnSpan="2" Padding="30,30,30,30" TextWrapping="Wrap">Welcome to the Handwriting Converter! 
             Use a pen or mouse to write in the box on the left and click arrow in the middle to convert it to text. Make changes 
