@@ -8,9 +8,6 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
-    <Page.Resources>
-        <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
-    </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
