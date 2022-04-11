@@ -16,9 +16,9 @@ namespace HandwritingConverter
         {
             await ApplicationData.Current.LocalFolder.CreateFileAsync("handwritingConverter.db", CreationCollisionOption.OpenIfExists);
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
-            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+            using (SqliteConnection connection = new SqliteConnection($"Filename={dbpath}"))
             {
-                db.Open();
+                connection.Open();
 
                 string query = "CREATE TABLE IF NOT EXISTS convertedText (" +
                     "GUID VARCHAR(36) NOT NULL CHECK(length(GUID)==36)," +
@@ -26,11 +26,11 @@ namespace HandwritingConverter
                     "Converted VARCHAR(255) NOT NULL," +
                     "PRIMARY KEY (GUID) );";
 
-                SqliteCommand Command = new SqliteCommand(query, db);
+                SqliteCommand Command = new SqliteCommand(query, connection);
 
                 Command.ExecuteReader();
 
-                db.Close();
+                connection.Close();
             }
         }
 

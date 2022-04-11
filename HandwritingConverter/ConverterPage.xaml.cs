@@ -16,18 +16,17 @@ namespace HandwritingConverter
         {
             if (recognitionResult.Text != "")
             {
+                Guid guid = Guid.NewGuid();
+                string result = recognitionResult.Text;
+                long unix = DateTimeOffset.Now.ToUnixTimeSeconds();
+
                 string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
-                using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+                using (SqliteConnection connection = new SqliteConnection($"Filename={dbpath}"))
                 {
-                    db.Open();
+                    connection.Open();
 
                     SqliteCommand insertCommand = new SqliteCommand();
-                    insertCommand.Connection = db;
-
-                    Guid guid = Guid.NewGuid();
-                    string result = recognitionResult.Text;
-
-                    long unix = DateTimeOffset.Now.ToUnixTimeSeconds();
+                    insertCommand.Connection = connection;
 
                     insertCommand.CommandText = $"INSERT INTO convertedText VALUES (@guid, @unix, @result);";
                     insertCommand.Parameters.AddWithValue("@guid", guid);
@@ -36,7 +35,7 @@ namespace HandwritingConverter
 
                     insertCommand.ExecuteReader();
 
-                    db.Close();
+                    connection.Close();
                 }
 
                 savedFeedback.Glyph = "\uE73E";

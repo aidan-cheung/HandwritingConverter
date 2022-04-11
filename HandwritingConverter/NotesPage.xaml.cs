@@ -23,11 +23,11 @@ namespace HandwritingConverter
         private void GrabNotes()
         {
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
-            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+            using (SqliteConnection connection = new SqliteConnection($"Filename={dbpath}"))
             {
-                db.Open();
+                connection.Open();
 
-                SqliteCommand selectCommand = new SqliteCommand("SELECT guid,timestamp,converted FROM convertedText", db);
+                SqliteCommand selectCommand = new SqliteCommand("SELECT guid,timestamp,converted FROM convertedText", connection);
                 SqliteDataReader query = selectCommand.ExecuteReader();
 
                 while (query.Read())
@@ -35,7 +35,7 @@ namespace HandwritingConverter
                     Notes.Add(new Note(query.GetGuid(0), query.GetInt32(1), query.GetString(2)));
                 }
 
-                db.Close();
+                connection.Close();
             }
         }
 
@@ -49,19 +49,19 @@ namespace HandwritingConverter
                 Guid guid = note.id;
 
                 string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
-                using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+                using (SqliteConnection connection = new SqliteConnection($"Filename={dbpath}"))
                 {
-                    db.Open();
+                    connection.Open();
 
                     SqliteCommand deleteCommand = new SqliteCommand();
-                    deleteCommand.Connection = db;
+                    deleteCommand.Connection = connection;
 
                     deleteCommand.CommandText = $"DELETE FROM convertedText WHERE guid=@guid";
                     deleteCommand.Parameters.AddWithValue("@guid", guid);
 
                     deleteCommand.ExecuteReader();
 
-                    db.Close();
+                    connection.Close();
                 }
             }
             else
