@@ -27,7 +27,7 @@
             <Image Source="Assets/Square44x44Logo.png"
                     HorizontalAlignment="Left" 
                     Width="16" Height="16" 
-                    Margin="8,0"/>
+                    Margin="8,0,0,0"/>
             <TextBlock x:Name="AppTitle" Text="Handwriting Converter"
                     TextWrapping="NoWrap"
                     Style="{StaticResource CaptionTextBlockStyle}" 
