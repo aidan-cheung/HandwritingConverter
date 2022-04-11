@@ -41,7 +41,7 @@
 
         <InkToolbar x:Name="inkToolbar"
                     Grid.Row="2"
-                    Margin="90,0,0,45"
+                    Margin="90,0,90,45"
                     VerticalAlignment="Bottom"
                     InitialControls="None"
                     TargetInkCanvas="{x:Bind inkCanvas}">
