@@ -28,11 +28,11 @@ namespace HandwritingConverter
                 connection.Open();
 
                 SqliteCommand selectCommand = new SqliteCommand("SELECT guid,timestamp,converted FROM convertedText", connection);
-                SqliteDataReader query = selectCommand.ExecuteReader();
+                SqliteDataReader response = selectCommand.ExecuteReader();
 
-                while (query.Read())
+                while (response.Read())
                 {
-                    Notes.Add(new Note(query.GetGuid(0), query.GetInt32(1), query.GetString(2)));
+                    Notes.Add(new Note(response.GetGuid(0), response.GetInt32(1), response.GetString(2)));
                 }
 
                 connection.Close();
