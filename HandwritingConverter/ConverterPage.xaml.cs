@@ -54,10 +54,13 @@ namespace HandwritingConverter
         }
 
         /*
-        The following code uses modified samples from the Microsoft UWP Documentation, 
-        these samples are taken from the following pages granted under the MIT license:
+        The following code uses modified samples from the Microsoft UWP Documentation
+        and thus should not be treated as my own code. The samples are taken from the 
+        following pages granted under the MIT license:
 
         - https://docs.microsoft.com/en-us/windows/apps/design/input/ink-walkthrough
+
+        Link to License: https://github.com/MicrosoftDocs/windows-uwp/blob/docs/LICENSE-CODE
         */
 
         public ConverterPage()
