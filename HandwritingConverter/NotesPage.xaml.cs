@@ -56,7 +56,7 @@ namespace HandwritingConverter
                     SqliteCommand deleteCommand = new SqliteCommand();
                     deleteCommand.Connection = connection;
 
-                    deleteCommand.CommandText = $"DELETE FROM convertedText WHERE guid=@guid";
+                    deleteCommand.CommandText = "DELETE FROM convertedText WHERE guid=@guid";
                     deleteCommand.Parameters.AddWithValue("@guid", guid);
 
                     deleteCommand.ExecuteReader();

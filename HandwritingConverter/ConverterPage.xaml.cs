@@ -28,7 +28,7 @@ namespace HandwritingConverter
                     SqliteCommand insertCommand = new SqliteCommand();
                     insertCommand.Connection = connection;
 
-                    insertCommand.CommandText = $"INSERT INTO convertedText VALUES (@guid, @unix, @result);";
+                    insertCommand.CommandText = "INSERT INTO convertedText VALUES (@guid, @unix, @result);";
                     insertCommand.Parameters.AddWithValue("@guid", guid);
                     insertCommand.Parameters.AddWithValue("@unix", unix);
                     insertCommand.Parameters.AddWithValue("@result", result);
