@@ -81,11 +81,9 @@ namespace HandwritingConverter
             {
                 Note note = NotesGridView.SelectedItem as Note;
                 string textToCopy = note.converted;
+
                 DataPackage dataPackage = new DataPackage();
-
-                dataPackage.RequestedOperation = DataPackageOperation.Copy;
                 dataPackage.SetText(textToCopy);
-
                 Clipboard.SetContent(dataPackage);
 
                 CopyButton.Icon = new SymbolIcon(Symbol.Accept);
@@ -120,11 +118,7 @@ namespace HandwritingConverter
                 StorageFile file = await filePicker.PickSaveFileAsync();
                 if (file != null)
                 {
-                    CachedFileManager.DeferUpdates(file);
-
                     await FileIO.WriteTextAsync(file, noteToSave);
-
-                    Windows.Storage.Provider.FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
                 }
             }
             else
