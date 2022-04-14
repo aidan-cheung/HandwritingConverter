@@ -21,22 +21,21 @@ namespace HandwritingConverter
                 long unix = DateTimeOffset.Now.ToUnixTimeSeconds();
 
                 string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
-                using (SqliteConnection connection = new SqliteConnection($"Filename={dbpath}"))
-                {
-                    connection.Open();
+                string query = "INSERT INTO convertedText VALUES (@guid, @unix, @result);";
 
-                    SqliteCommand insertCommand = new SqliteCommand();
-                    insertCommand.Connection = connection;
+                SqliteConnection connection = new SqliteConnection($"Filename={dbpath}");
 
-                    insertCommand.CommandText = "INSERT INTO convertedText VALUES (@guid, @unix, @result);";
-                    insertCommand.Parameters.AddWithValue("@guid", guid);
-                    insertCommand.Parameters.AddWithValue("@unix", unix);
-                    insertCommand.Parameters.AddWithValue("@result", result);
+                connection.Open();
 
-                    insertCommand.ExecuteReader();
+                SqliteCommand insertCommand = new SqliteCommand(query, connection);
 
-                    connection.Close();
-                }
+                insertCommand.Parameters.AddWithValue("@guid", guid);
+                insertCommand.Parameters.AddWithValue("@unix", unix);
+                insertCommand.Parameters.AddWithValue("@result", result);
+
+                insertCommand.ExecuteReader();
+
+                connection.Close();
 
                 savedFeedback.Glyph = "\uE73E";
                 await Task.Delay(1000);
