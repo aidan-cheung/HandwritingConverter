@@ -27,13 +27,13 @@ namespace HandwritingConverter
 
                 connection.Open();
 
-                SqliteCommand insertCommand = new SqliteCommand(query, connection);
+                SqliteCommand command = new SqliteCommand(query, connection);
 
-                insertCommand.Parameters.AddWithValue("@guid", guid);
-                insertCommand.Parameters.AddWithValue("@unix", unix);
-                insertCommand.Parameters.AddWithValue("@result", result);
+                command.Parameters.AddWithValue("@guid", guid);
+                command.Parameters.AddWithValue("@unix", unix);
+                command.Parameters.AddWithValue("@result", result);
 
-                insertCommand.ExecuteReader();
+                command.ExecuteReader();
 
                 connection.Close();
 
