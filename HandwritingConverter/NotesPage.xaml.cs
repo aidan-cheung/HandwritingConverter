@@ -185,35 +185,7 @@ namespace HandwritingConverter
 
         private void SortNotesConverted(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<Note> TempArray = new ObservableCollection<Note>(Notes);
-            int counter = 0;
-            bool swapped = true;
-            int swaps = 0;
-
-            while (swapped)
-            {
-                while (counter < TempArray.Count - 1)
-                {
-                    if (string.Compare(TempArray[counter].converted, TempArray[counter + 1].converted) > 0)
-                    {
-                        Note temp = TempArray[counter];
-                        TempArray[counter] = TempArray[counter + 1];
-                        TempArray[counter + 1] = temp;
-
-                        swaps++;
-                    }
-                    counter++;
-                }
-                if (swaps == 0)
-                {
-                    swapped = false;
-                }
-                else
-                {
-                    swaps = 0;
-                    counter = 0;
-                }
-            }
+            ObservableCollection<Note> TempArray = BubbleSortConverted(Notes);
 
             Notes.Clear();
 
@@ -225,21 +197,31 @@ namespace HandwritingConverter
 
         private void SortNotesTimestamp(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<Note> TempArray = new ObservableCollection<Note>(Notes);
+            ObservableCollection<Note> TempArray = BubbleSortTimestamp(Notes);
 
+            Notes.Clear();
+
+            for (int i = 0; i < TempArray.Count; i++)
+            {
+                Notes.Add(TempArray[i]);
+            }
+        }
+
+        private ObservableCollection<Note> BubbleSortConverted(ObservableCollection<Note> array)
+        {
             int counter = 0;
             bool swapped = true;
             int swaps = 0;
 
             while (swapped)
             {
-                while (counter < TempArray.Count - 1)
+                while (counter < array.Count - 1)
                 {
-                    if (TempArray[counter].timestamp > TempArray[counter + 1].timestamp)
+                    if (string.Compare(array[counter].converted, array[counter + 1].converted) > 0)
                     {
-                        Note temp = TempArray[counter];
-                        TempArray[counter] = TempArray[counter + 1];
-                        TempArray[counter + 1] = temp;
+                        Note temp = array[counter];
+                        array[counter] = array[counter + 1];
+                        array[counter + 1] = temp;
 
                         swaps++;
                     }
@@ -255,13 +237,40 @@ namespace HandwritingConverter
                     counter = 0;
                 }
             }
+            return array;
+        }
 
-            Notes.Clear();
+        private ObservableCollection<Note> BubbleSortTimestamp(ObservableCollection<Note> array)
+        {
+            int counter = 0;
+            bool swapped = true;
+            int swaps = 0;
 
-            for (int i = 0; i < TempArray.Count; i++)
+            while (swapped)
             {
-                Notes.Add(TempArray[i]);
+                while (counter < array.Count - 1)
+                {
+                    if (array[counter].timestamp > array[counter + 1].timestamp)
+                    {
+                        Note temp = array[counter];
+                        array[counter] = array[counter + 1];
+                        array[counter + 1] = temp;
+
+                        swaps++;
+                    }
+                    counter++;
+                }
+                if (swaps == 0)
+                {
+                    swapped = false;
+                }
+                else
+                {
+                    swaps = 0;
+                    counter = 0;
+                }
             }
+            return array;
         }
     }
 }
