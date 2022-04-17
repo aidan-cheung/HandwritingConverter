@@ -1,6 +1,6 @@
 # Handwriting Converter
 This project is for the SQA Advanced Higher Computing Science course. The program will take handwriting as an input and convert it into computer readable text which you can copy, paste or share.
-![handwritingconverterv2](https://user-images.githubusercontent.com/86779011/155710190-60e6c0f8-07f1-48ff-b0f7-78380d14b17a.png)
+![Version 1 0](https://user-images.githubusercontent.com/86779011/163729447-519b4f2e-2208-484d-80d1-33b48c0344ae.png)
 
 ### How To Install
 
