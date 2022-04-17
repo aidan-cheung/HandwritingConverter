@@ -23,56 +23,20 @@ namespace HandwritingConverter
         private void GrabNotes()
         {
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
-            using (SqliteConnection connection = new SqliteConnection($"Filename={dbpath}"))
+            string query = "SELECT guid,timestamp,converted FROM convertedText";
+
+            SqliteConnection connection = new SqliteConnection($"Filename={dbpath}");
+            connection.Open();
+
+            SqliteCommand command = new SqliteCommand(query, connection);
+            SqliteDataReader response = command.ExecuteReader();
+
+            while (response.Read())
             {
-                connection.Open();
-
-                SqliteCommand selectCommand = new SqliteCommand("SELECT guid,timestamp,converted FROM convertedText", connection);
-                SqliteDataReader response = selectCommand.ExecuteReader();
-
-                while (response.Read())
-                {
-                    Notes.Add(new Note(response.GetGuid(0), response.GetInt32(1), response.GetString(2)));
-                }
-
-                connection.Close();
+                Notes.Add(new Note(response.GetGuid(0), response.GetInt32(1), response.GetString(2)));
             }
-        }
 
-        private async void DeleteNote(object sender, RoutedEventArgs e)
-        {
-            if (NotesGridView.SelectedItem != null)
-            {
-                Note note = NotesGridView.SelectedItem as Note;
-                Notes.Remove(note);
-
-                Guid guid = note.id;
-
-                string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
-                using (SqliteConnection connection = new SqliteConnection($"Filename={dbpath}"))
-                {
-                    connection.Open();
-
-                    SqliteCommand deleteCommand = new SqliteCommand();
-                    deleteCommand.Connection = connection;
-
-                    deleteCommand.CommandText = "DELETE FROM convertedText WHERE guid=@guid";
-                    deleteCommand.Parameters.AddWithValue("@guid", guid);
-
-                    deleteCommand.ExecuteReader();
-
-                    connection.Close();
-                }
-            }
-            else
-            {
-                ContentDialog dialog = new ContentDialog();
-                dialog.Title = "Error";
-                dialog.PrimaryButtonText = "Okay";
-                dialog.Content = "No note was selected.";
-
-                await dialog.ShowAsync();
-            }
+            connection.Close();
         }
 
         private async void CopyNote(object sender, RoutedEventArgs e)
@@ -103,6 +67,63 @@ namespace HandwritingConverter
             }
         }
 
+        private async void DetailNote(object sender, RoutedEventArgs e)
+        {
+            if (NotesGridView.SelectedItem != null)
+            {
+                Note note = NotesGridView.SelectedItem as Note;
+
+                DateTimeOffset noteOffset = DateTimeOffset.FromUnixTimeSeconds(note.timestamp);
+                DateTime noteDate = noteOffset.UtcDateTime;
+
+                ContentDialog dialog = new ContentDialog();
+                dialog.Title = "Note Details";
+                dialog.PrimaryButtonText = "Okay";
+                dialog.Content = noteDate;
+                await dialog.ShowAsync();
+            }
+            else
+            {
+                ContentDialog dialog = new ContentDialog();
+                dialog.Title = "Error";
+                dialog.PrimaryButtonText = "Okay";
+                dialog.Content = "No note was selected.";
+                await dialog.ShowAsync();
+            }
+        }
+
+        private async void DeleteNote(object sender, RoutedEventArgs e)
+        {
+            if (NotesGridView.SelectedItem != null)
+            {
+                Note note = NotesGridView.SelectedItem as Note;
+                Notes.Remove(note);
+
+                Guid guid = note.id;
+
+                string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
+                string query = "DELETE FROM convertedText WHERE guid=@guid";
+
+                SqliteConnection connection = new SqliteConnection($"Filename={dbpath}");
+                connection.Open();
+
+                SqliteCommand command = new SqliteCommand(query, connection);
+                command.Parameters.AddWithValue("@guid", guid);
+
+                command.ExecuteReader();
+                connection.Close();
+            }
+            else
+            {
+                ContentDialog dialog = new ContentDialog();
+                dialog.Title = "Error";
+                dialog.PrimaryButtonText = "Okay";
+                dialog.Content = "No note was selected.";
+
+                await dialog.ShowAsync();
+            }
+        }
+
         private async void ExportNote(object sender, RoutedEventArgs e)
         {
             if (NotesGridView.SelectedItem != null)
@@ -111,7 +132,6 @@ namespace HandwritingConverter
                 string noteToSave = note.converted;
 
                 var filePicker = new Windows.Storage.Pickers.FileSavePicker();
-                filePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
                 filePicker.FileTypeChoices.Add("Plain Text", new List<string>() { ".txt" });
                 filePicker.SuggestedFileName = "New Note";
 
@@ -127,7 +147,6 @@ namespace HandwritingConverter
                 dialog.Title = "Error";
                 dialog.PrimaryButtonText = "Okay";
                 dialog.Content = "No note was selected.";
-
                 await dialog.ShowAsync();
             }
         }
@@ -151,34 +170,6 @@ namespace HandwritingConverter
                 dialog.Title = "Error";
                 dialog.PrimaryButtonText = "Okay";
                 dialog.Content = "No note was selected.";
-
-                await dialog.ShowAsync();
-            }
-        }
-
-        private async void DetailNote(object sender, RoutedEventArgs e)
-        {
-            if (NotesGridView.SelectedItem != null)
-            {
-                Note note = NotesGridView.SelectedItem as Note;
-
-                DateTimeOffset noteOffset = DateTimeOffset.FromUnixTimeSeconds(note.timestamp);
-                DateTime noteDate = noteOffset.UtcDateTime;
-
-                ContentDialog dialog = new ContentDialog();
-                dialog.Title = "Note Details";
-                dialog.PrimaryButtonText = "Okay";
-                dialog.Content = noteDate;
-
-                await dialog.ShowAsync();
-            }
-            else
-            {
-                ContentDialog dialog = new ContentDialog();
-                dialog.Title = "Error";
-                dialog.PrimaryButtonText = "Okay";
-                dialog.Content = "No note was selected.";
-
                 await dialog.ShowAsync();
             }
         }

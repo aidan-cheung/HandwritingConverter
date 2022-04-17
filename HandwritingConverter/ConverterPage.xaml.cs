@@ -17,8 +17,8 @@ namespace HandwritingConverter
             if (recognitionResult.Text != "")
             {
                 Guid guid = Guid.NewGuid();
-                string result = recognitionResult.Text;
                 long unix = DateTimeOffset.Now.ToUnixTimeSeconds();
+                string result = recognitionResult.Text;
 
                 string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
                 string query = "INSERT INTO convertedText VALUES (@guid, @unix, @result);";
@@ -46,8 +46,7 @@ namespace HandwritingConverter
                 ContentDialog dialog = new ContentDialog();
                 dialog.Title = "Error";
                 dialog.PrimaryButtonText = "Okay";
-                dialog.Content = "No text to save";
-
+                dialog.Content = "No text to save.";
                 await dialog.ShowAsync();
             }
         }

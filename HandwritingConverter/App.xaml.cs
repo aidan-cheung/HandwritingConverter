@@ -15,23 +15,20 @@ namespace HandwritingConverter
         private async static void InitialiseDatabase()
         {
             await ApplicationData.Current.LocalFolder.CreateFileAsync("handwritingConverter.db", CreationCollisionOption.OpenIfExists);
+            
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "handwritingConverter.db");
-            using (SqliteConnection connection = new SqliteConnection($"Filename={dbpath}"))
-            {
-                connection.Open();
-
-                string query = "CREATE TABLE IF NOT EXISTS convertedText (" +
+            string query = "CREATE TABLE IF NOT EXISTS convertedText (" +
                     "GUID VARCHAR(36) NOT NULL CHECK(length(GUID)==36)," +
                     "Timestamp INTEGER NOT NULL," +
                     "Converted VARCHAR(255) NOT NULL," +
                     "PRIMARY KEY (GUID) );";
 
-                SqliteCommand Command = new SqliteCommand(query, connection);
+            SqliteConnection connection = new SqliteConnection($"Filename={dbpath}");
+            connection.Open();
 
-                Command.ExecuteReader();
-
-                connection.Close();
-            }
+            SqliteCommand command = new SqliteCommand(query, connection);
+            command.ExecuteReader();
+            connection.Close();
         }
 
         /*
