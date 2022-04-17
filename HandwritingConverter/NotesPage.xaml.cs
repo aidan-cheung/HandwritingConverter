@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
@@ -176,7 +177,7 @@ namespace HandwritingConverter
 
         private void SortNotesConverted(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<Note> TempArray = BubbleSortConverted(Notes);
+            ObservableCollection<Note> TempArray = new ObservableCollection<Note>(BubbleSortConverted(Notes));
 
             Notes.Clear();
 
@@ -188,7 +189,7 @@ namespace HandwritingConverter
 
         private void SortNotesTimestamp(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<Note> TempArray = BubbleSortTimestamp(Notes);
+            ObservableCollection<Note> TempArray = new ObservableCollection<Note>(BubbleSortTimestamp(Notes));
 
             Notes.Clear();
 
