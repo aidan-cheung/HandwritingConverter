@@ -12,7 +12,7 @@ namespace HandwritingConverter
         {
             this.InitializeComponent();
 
-            string appVersion = $"Handwriting Converter {Package.Current.Id.Version.Major}.{Package.Current.Id.Version.Minor}.{Package.Current.Id.Version.Build} Beta";
+            string appVersion = $"Handwriting Converter {Package.Current.Id.Version.Major}.{Package.Current.Id.Version.Minor}.{Package.Current.Id.Version.Build} Stable";
             versiontext.Text = appVersion;
         }
 
